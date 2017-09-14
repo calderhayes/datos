@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+      "target": "es5",
+      "declaration": true,
+      "lib": ["es2015", "dom"],
+      "module": "commonjs",
+      "noImplicitAny": true,
+      "removeComments": true,
+      "preserveConstEnums": true,
+      "outDir": "./dist/",
+      "sourceMap": true,
+      "moduleResolution": "node",
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "jsx": "react",
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "baseUrl": "./src/"
+  },
+  "filesGlob": [
+      "./src/**/*.ts",
+      "./src/**/*.tsx"
+  ],
+  "exclude": [
+      "node_modules",
+      "dist"
+  ],
+  "compileOnSave": true
+}

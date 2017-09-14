@@ -1,0 +1,39 @@
+{
+  "name": "datos",
+  "version": "0.0.1",
+  "description": "A simple React form utility to enable easy validation with minimal dependencies and written in TypeScript.",
+  "main": "index.ts",
+  "scripts": {
+    "_lint": "node ./node_modules/tslint/bin/tslint --config tslint.json --project tsconfig.json",
+    "lint": "npm --silent run _lint",
+    "build": "npm run lint && node ./node_modules/typescript/bin/tsc",
+    "test": "npm run build && node ./node_modules/mocha/bin/mocha --recursive ./dist/test",
+    "clean": "rm -rf ./dist/*",
+    "serve": "npm run build && node devserver.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://calderhayes@bitbucket.org/calderhayes/datos.git"
+  },
+  "keywords": [
+    "react",
+    "form",
+    "validation"
+  ],
+  "author": "Calder Hayes",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/calderhayes/datos#readme",
+  "dependencies": {
+    "@types/react": "^16.0.5",
+    "react": "^15.6.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.43",
+    "chai": "^4.1.2",
+    "mocha": "^3.5.3",
+    "mocha-typescript": "^1.1.8",
+    "tslint": "^4.1.1",
+    "typescript": "^2.5.2"
+  }
+}

@@ -2,9 +2,10 @@
 
 (Not at a usable version at this time)
 
-A simple React form utility to enable easy validation with minimal dependencies.
+A simple React form utility to enable easy validation with minimal dependencies and written in TypeScript.
 
 Some key features:
+- Minimal dependencies
 - Built in TypeScript
 - Allows for easy validation, and manual validation errors from server responses
 - Using modern techniques
