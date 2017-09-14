@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as cx from 'classnames';
-import {noop} from 'utility';
+import {noop, IErrorable} from 'utility';
 
 export interface IHTMLInputProps {
   onChange?: Function;
@@ -13,11 +13,8 @@ export interface IHTMLInputProps {
   name?: string;
 }
 
-export interface IInputProps extends IHTMLInputProps {
-  errorMessage?: string;
-  errorClassName?: string;
-  containerClassName?: string;
-  errorContainerClassName?: string;
+export interface IInputProps extends IHTMLInputProps, IErrorable {
+
 }
 
 export class Input extends React.Component<IInputProps, {}> {

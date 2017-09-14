@@ -26,10 +26,13 @@ export abstract class BaseForm<T extends object, P extends IBaseFormProps<T>, S>
   constructor(props: P) {
     super(props);
     this.onBlur = this.onBlur.bind(this);
+    this.isFieldValid = this.isFieldValid.bind(this);
   }
 
   protected get isValid() {
-    return this.props.validator(this.props.formData);
+    // Having some kind of error here, I suspect it is the tooling
+    const data: T = this.props.formData as T;
+    return this.props.validator(data);
   }
 
   protected isFieldValid(fieldName: string) {

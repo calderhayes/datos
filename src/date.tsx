@@ -1,7 +1,7 @@
 import * as React from 'react';
 import 'react-datetime/css/react-datetime.css';
 import {Moment} from 'moment';
-import {noop} from 'utility';
+import {noop, IErrorable} from 'utility';
 import * as cx from 'classnames';
 
 export type ParseableDate = Date|Moment|string;
@@ -44,11 +44,8 @@ export interface IReactDateTimeInputProps {
   disableOnClickOutside?: boolean;
 }
 
-export interface IDateTimeInputProps extends IReactDateTimeInputProps {
-  errorMessage?: string;
-  errorClassName?: string;
-  containerClassName?: string;
-  errorContainerClassName?: string;
+export interface IDateTimeInputProps extends IReactDateTimeInputProps, IErrorable {
+
 }
 
 // https://github.com/YouCanBookMe/react-datetime
