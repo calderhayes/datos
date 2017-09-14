@@ -7,13 +7,14 @@ import * as cx from 'classnames';
 // tslint:disable-next-line:no-var-requires no-require-imports
 const ReactSelectComponent = require('react-select');
 
-export interface ISelectProps<TValue, OptionValues>
-  extends ReactSelect.ReactSelectProps<TValue, OptionValues>, IErrorable {
-
+// Sublime is giving me some errors, but compiles fine
+export interface ISelectProps<TValue>
+  extends ReactSelect.ReactSelectProps<TValue>, IErrorable {
+  className?: string;
 }
 
-export class Select<TValue, OptionValues>
-  extends React.Component<ISelectProps<TValue, OptionValues>, {}> {
+export class Select<TValue>
+  extends React.Component<ISelectProps<TValue>, {}> {
 
   public render() {
 

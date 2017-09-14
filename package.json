@@ -8,7 +8,8 @@
     "lint": "npm --silent run _lint",
     "build": "npm run lint && node ./node_modules/typescript/bin/tsc",
     "test": "npm run build && node ./node_modules/mocha/bin/mocha --recursive ./dist/test",
-    "clean": "rm -rf ./dist/*"
+    "clean": "rm -rf ./dist/*",
+    "demo": "npm run build && node webpack.devserver.js"
   },
   "repository": {
     "type": "git",
@@ -39,10 +40,13 @@
   "devDependencies": {
     "@types/chai": "^4.0.4",
     "@types/mocha": "^2.2.43",
+    "awesome-typescript-loader": "^3.2.3",
     "chai": "^4.1.2",
     "mocha": "^3.5.3",
     "mocha-typescript": "^1.1.8",
     "tslint": "^4.1.1",
-    "typescript": "^2.5.2"
+    "typescript": "^2.5.2",
+    "webpack": "^3.5.6",
+    "webpack-dev-server": "^2.8.1"
   }
 }
