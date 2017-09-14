@@ -8,8 +8,7 @@
     "lint": "npm --silent run _lint",
     "build": "npm run lint && node ./node_modules/typescript/bin/tsc",
     "test": "npm run build && node ./node_modules/mocha/bin/mocha --recursive ./dist/test",
-    "clean": "rm -rf ./dist/*",
-    "serve": "npm run build && node devserver.js"
+    "clean": "rm -rf ./dist/*"
   },
   "repository": {
     "type": "git",
@@ -24,7 +23,9 @@
   "license": "MIT",
   "homepage": "https://bitbucket.org/calderhayes/datos#readme",
   "dependencies": {
+    "@types/classnames": "^2.2.3",
     "@types/react": "^16.0.5",
+    "classnames": "^2.2.5",
     "react": "^15.6.1"
   },
   "devDependencies": {
