@@ -29,7 +29,7 @@ export class Input extends React.Component<IInputProps, {}> {
     super(props);
 
     this.isCheckbox = props.type === 'checkbox' || props.type === 'radio';
-    this.value = this.props.value;
+    this.value = props.value || '';
   }
 
   public render() {
@@ -52,16 +52,14 @@ export class Input extends React.Component<IInputProps, {}> {
       [errorClassName]: !!errorMessage && !!errorClassName
     });
 
-    const value = this.props.value || '';
-
-    const checked = this.isCheckbox ? value : '';
+    const checked = this.isCheckbox ? this.value : '';
 
     return (
       <div className={containerClass}>
         <input
           {...(rest) as any}
           className={_className}
-          value={value}
+          value={this.value}
           checked={checked}
           onChange={this.props.onChange || noop}
           onBlur={this.props.onBlur || noop}

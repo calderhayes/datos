@@ -24,9 +24,15 @@
   "homepage": "https://bitbucket.org/calderhayes/datos#readme",
   "dependencies": {
     "@types/classnames": "^2.2.3",
+    "@types/moment": "^2.13.0",
+    "@types/node": "^8.0.28",
     "@types/react": "^16.0.5",
+    "@types/react-dom": "^15.5.4",
     "classnames": "^2.2.5",
-    "react": "^15.6.1"
+    "moment": "^2.18.1",
+    "react": "^15.6.1",
+    "react-datetime": "^2.10.1",
+    "react-dom": "^15.6.1"
   },
   "devDependencies": {
     "@types/chai": "^4.0.4",
