@@ -33,7 +33,6 @@ export class Input extends React.Component<IInputProps, {}> {
   }
 
   public render() {
-
     const {
       errorClassName,
       containerClassName,
@@ -70,6 +69,5 @@ export class Input extends React.Component<IInputProps, {}> {
       </div>
     );
   }
-
 }
 
