@@ -21,11 +21,40 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
   public render() {
 
     const canSubmit = this.canSubmit && !this.props.isLoading;
+    // See index.html for the CSS3 required for this spinner
     const spinner = this.props.isLoading ?
       <span className="glyphicon glyphicon-refresh spinning"></span> : null;
 
+    const formErrors = this.props.formErrorMessages.map((m, i) => {
+      return (
+        <li key={i.toString()}>
+          <Datos.ValidationMessage
+            fieldMessage={{message: m, preventSubmitError: false}}
+            className='help-block'
+            containerClassName='has-error'
+          />
+        </li>
+      );
+    });
+
+    let formError: JSX.Element = null;
+    if (formErrors.length > 0) {
+      formError = (
+        <div>
+          <span>Server general errors:</span>
+          <ul>
+            {formErrors}
+          </ul>
+        </div>
+      );
+    }
+
     return (
       <form className='form'>
+
+        <ul>
+          {formError}
+        </ul>
 
         <div className='form-group'>
           <label htmlFor='firstName'>First Name</label>
