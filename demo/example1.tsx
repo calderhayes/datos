@@ -83,7 +83,7 @@ export class Example1 extends React.Component<IExample1Props, IExample1State> {
     }
 
     // Simulating some server side error messages
-    const fieldMessageMap: Datos.FieldMessageMap = new Datos.FieldMessageMap();
+    const fieldMessageMap = new Datos.FieldMessageMap();
     if (this.existingLastName && this.existingLastName.value) {
       if (formData.lastName.toLowerCase() === this.existingLastName.value.toLowerCase()) {
         fieldMessageMap.add('lastName', {

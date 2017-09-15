@@ -19,6 +19,14 @@ export interface IExampleFormState extends Datos.IBaseFormState<IExampleFormData
 
 export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormProps, IExampleFormState> {
 
+  private readonly names = {
+    firstName: 'firstName',
+    middleName: 'middleName',
+    lastName: 'lastName',
+    birthDate: 'birthDate',
+    allGood: 'allGood'
+  };
+
   public render() {
 
     const canSubmit = this.canSubmit && !this.props.isLoading;
@@ -64,12 +72,12 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             errorContainerClassName='has-error'
             className='form-control'
             onBlur={this.onBlur}
-            name='firstName'
+            name={this.names.firstName}
             value={this.state.formData.firstName}
-            fieldMessage={this.state.fieldMessageMap.get('firstName')}
+            fieldMessage={this.state.fieldMessageMap.get(this.names.firstName)}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.fieldMessageMap.get('firstName')}
+            fieldMessage={this.state.fieldMessageMap.get(this.names.firstName)}
             className='help-block'
             containerClassName='has-error'
           />
@@ -82,12 +90,12 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             errorContainerClassName='has-error'
             className='form-control'
             onBlur={this.onBlur}
-            name='lastName'
+            name={this.names.lastName}
             value={this.state.formData.lastName}
-            fieldMessage={this.state.fieldMessageMap.get('lastName')}
+            fieldMessage={this.state.fieldMessageMap.get(this.names.lastName)}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.fieldMessageMap.get('lastName')}
+            fieldMessage={this.state.fieldMessageMap.get(this.names.lastName)}
             className='help-block'
             containerClassName='has-error'
           />
@@ -100,12 +108,12 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             errorContainerClassName='has-error'
             className='form-control'
             onBlur={this.onBlur}
-            name='birthDate'
+            name={this.names.birthDate}
             value={this.state.formData.birthDate.toISOString()}
-            fieldMessage={this.state.fieldMessageMap.get('birthDate')}
+            fieldMessage={this.state.fieldMessageMap.get(this.names.birthDate)}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.fieldMessageMap.get('birthDate')}
+            fieldMessage={this.state.fieldMessageMap.get(this.names.birthDate)}
             className='help-block'
             containerClassName='has-error'
           />
@@ -118,12 +126,12 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             errorContainerClassName='has-error'
             className='form-check-input'
             onChange={this.onBlur}
-            name='allGood'
+            name={this.names.allGood}
             checked={this.state.formData.allGood}
-            fieldMessage={this.state.fieldMessageMap.get('allGood')}
+            fieldMessage={this.state.fieldMessageMap.get(this.names.allGood)}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.fieldMessageMap.get('allGood')}
+            fieldMessage={this.state.fieldMessageMap.get(this.names.allGood)}
             className='help-block'
             containerClassName='has-error'
           />

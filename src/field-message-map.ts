@@ -57,7 +57,7 @@ export class FieldMessageMap {
 
   public addOrOverrideWithMap(map: FieldMessageMap) {
     const newMap = new FieldMessageMap();
-    newMap.fieldMessages = this.fieldMessages;
+    newMap.fieldMessages = this.fieldMessages.slice(0);
     map.fieldMessages.forEach((e) => {
       newMap.add(e.key, e.value);
     });
