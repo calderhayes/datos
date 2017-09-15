@@ -1,15 +1,17 @@
 {
   "name": "datos",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A simple React form utility to enable easy validation with minimal dependencies and written in TypeScript.",
-  "main": "index.ts",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
   "scripts": {
     "_lint": "node ./node_modules/tslint/bin/tslint --config tslint.json --project tsconfig.json",
     "lint": "npm --silent run _lint",
     "build": "npm run lint && node ./node_modules/typescript/bin/tsc",
     "test": "npm run build && node ./node_modules/mocha/bin/mocha --recursive ./dist/test",
     "clean": "rm -rf ./dist/*",
-    "demo": "npm run build && node webpack.devserver.js"
+    "demo": "npm run build && node webpack.devserver.js",
+    "prepublish": "npm run clean && npm run build"
   },
   "repository": {
     "type": "git",
