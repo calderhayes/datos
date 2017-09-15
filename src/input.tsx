@@ -8,11 +8,8 @@ export interface IInputProps extends IBaseInputProps {
 
 export class Input extends BaseInput<IInputProps, IBaseInputState> {
 
-  private defaultValue: string;
-
   constructor(props: IInputProps) {
     super(props);
-    this.defaultValue = this.props.value;
   }
 
   public render() {
@@ -40,7 +37,6 @@ export class Input extends BaseInput<IInputProps, IBaseInputState> {
         <input
           {...(rest) as any}
           className={_className}
-          defaultValue={this.defaultValue}
           value={this.state.value}
           onChange={this.onChange}
           onBlur={this.onBlur}
