@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {IHTMLEvent, noop, IFieldMessage} from 'utility';
 
-export interface IErrorMessageMap {
+export interface IFieldMessageMap {
   [name: string]: IFieldMessage;
 }
 
@@ -9,15 +9,16 @@ export interface IBaseFormProps<T extends object> {
   defaultFormData: T;
   onBlur?: (formData: T) => void;
   onSubmit?: (formData: T) => void;
-  validator?: (formData: T) => IErrorMessageMap;
+  validator?: (formData: T) => IFieldMessageMap;
   isLoading: boolean;
-  formErrorMessages?: Array<string>;
-  lastTimeFieldUpdated: number;
-  fieldErrorMessageMap: IErrorMessageMap;
+  formMessages?: Array<string>;
+  // We may need something like this if we are validation externally?
+  // lastTimeFieldUpdated: number;
+  fieldMessageMap: IFieldMessageMap;
 }
 
 export interface IBaseFormState<T extends object> {
-  errorMessages: IErrorMessageMap;
+  fieldMessageMap: IFieldMessageMap;
   formData: T;
 }
 
@@ -33,28 +34,28 @@ extends React.Component<P, S> {
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      errorMessages: {},
+      fieldMessageMap: {},
       formData: this.props.defaultFormData
     } as S;
   }
 
-  public componentWillReceiveProps(nextProps: P) {
+  // We may need something like this if we are validating externally?
+  /*public componentWillReceiveProps(nextProps: P) {
     if (nextProps.lastTimeFieldUpdated !== this.props.lastTimeFieldUpdated) {
       this.validate(this.state.formData as T);
     }
-  }
+  }*/
 
-  protected defaultValidator(_: T): IErrorMessageMap {
+  protected defaultValidator(_: T): IFieldMessageMap {
     return {};
   };
 
   protected get canSubmit() {
-    console.warn(this.state.errorMessages);
-    for (const prop in this.state.errorMessages) {
-      if (!this.state.errorMessages.hasOwnProperty(prop)) {
+    for (const prop in this.state.fieldMessageMap) {
+      if (!this.state.fieldMessageMap.hasOwnProperty(prop)) {
         continue;
       }
-      const val = this.state.errorMessages[prop];
+      const val = this.state.fieldMessageMap[prop];
       if (val && val.preventSubmitError) {
         return false;
       }
@@ -64,11 +65,8 @@ extends React.Component<P, S> {
   }
 
   protected onBlur(event: IHTMLEvent) {
-    console.warn('onblur baseform. orig:', this.state.formData);
     const value = this.getValueFromEvent(event);
-    console.warn('newvalue', value);
     const name = event.target.name;
-    console.warn('name', name);
 
     let data = {
       ...(this.state.formData as any)
@@ -76,7 +74,6 @@ extends React.Component<P, S> {
 
     data[name] = value;
 
-    console.warn('onblur baseform newdata:', data);
     this.validate(data);
     this.setState({
       formData: data
@@ -86,21 +83,19 @@ extends React.Component<P, S> {
 
   protected validate(data: T, callback?: () => void) {
     const validator = this.props.validator || this.defaultValidator;
-    const errorMessageMap = validator(data);
-    const map: IErrorMessageMap = Object.assign(
+    const fieldMessageMap = validator(data);
+    const map: IFieldMessageMap = Object.assign(
       {},
-      this.props.fieldErrorMessageMap,
-      errorMessageMap);
-    console.warn('final map', map);
+      this.props.fieldMessageMap,
+      fieldMessageMap);
     this.setState({
-      errorMessages: map
+      fieldMessageMap: map
     }, callback || noop);
   }
 
   protected onSubmit() {
     const data = this.state.formData as T;
     this.validate(data, () => {
-      console.warn('Can submit?', this.canSubmit);
       if (this.canSubmit && this.props.onSubmit) {
         this.props.onSubmit(data);
       }

@@ -25,7 +25,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
     const spinner = this.props.isLoading ?
       <span className="glyphicon glyphicon-refresh spinning"></span> : null;
 
-    const formErrors = this.props.formErrorMessages.map((m, i) => {
+    const formErrors = this.props.formMessages.map((m, i) => {
       return (
         <li key={i.toString()}>
           <Datos.ValidationMessage
@@ -66,10 +66,10 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             onBlur={this.onBlur}
             name='firstName'
             value={this.state.formData.firstName}
-            fieldMessage={this.state.errorMessages['firstName']}
+            fieldMessage={this.state.fieldMessageMap['firstName']}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.errorMessages['firstName']}
+            fieldMessage={this.state.fieldMessageMap['firstName']}
             className='help-block'
             containerClassName='has-error'
           />
@@ -85,10 +85,10 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             onBlur={this.onBlur}
             name='lastName'
             value={this.state.formData.lastName}
-            fieldMessage={this.state.errorMessages['lastName']}
+            fieldMessage={this.state.fieldMessageMap['lastName']}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.errorMessages['lastName']}
+            fieldMessage={this.state.fieldMessageMap['lastName']}
             className='help-block'
             containerClassName='has-error'
           />
@@ -110,9 +110,9 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
 
   }
 
-  protected defaultValidator(formData: IExampleFormData): Datos.IErrorMessageMap {
+  protected defaultValidator(formData: IExampleFormData): Datos.IFieldMessageMap {
     console.warn('Validating...', formData);
-    const errorMap = {} as Datos.IErrorMessageMap;
+    const errorMap = {} as Datos.IFieldMessageMap;
     if (formData.firstName.indexOf('z') !== -1) {
       // Some arbitrary tule
       errorMap['firstName'] = {

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as cx from 'classnames';
 import {BaseInput, IBaseInputProps, IBaseInputState} from 'base-input';
 
 export interface IInputProps extends IBaseInputProps {
@@ -22,21 +21,11 @@ export class Input extends BaseInput<IInputProps, IBaseInputState> {
       ...rest
     } = this.props;
 
-    const containerClass = cx({
-      [containerClassName]: !!containerClassName,
-      [errorContainerClassName]: !!fieldMessage && !!errorContainerClassName
-    });
-
-    const _className = cx({
-      [className]: !!className,
-      [errorClassName]: !!fieldMessage && !!errorClassName
-    });
-
     return (
-      <div className={containerClass}>
+      <div className={this.resolveContainerClassName()}>
         <input
           {...(rest) as any}
-          className={_className}
+          className={this.resolveClassName()}
           value={this.state.value}
           onChange={this.onChange}
           onBlur={this.onBlur}

@@ -11,7 +11,14 @@ export interface IHTMLEvent {
   persist(): void;
 }
 
+export enum FieldMessageType {
+  INFO = "INFO",
+  ERROR = "ERROR",
+  WARN = "WARN"
+}
+
 export interface IFieldMessage {
   message: string;
   preventSubmitError: boolean;
+  fieldMessageType?: FieldMessageType
 }

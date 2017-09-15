@@ -10,7 +10,7 @@ export interface IExample1State {
   formData: IExampleFormData;
   isLoading: boolean;
   serverErrors: Array<string>;
-  fieldErrorMessageMap: Datos.IErrorMessageMap;
+  fieldErrorMessageMap: Datos.IFieldMessageMap;
 }
 
 export class Example1 extends React.Component<IExample1Props, IExample1State> {
@@ -65,12 +65,9 @@ export class Example1 extends React.Component<IExample1Props, IExample1State> {
         <ExampleForm
           defaultFormData={this.state.formData}
           isLoading={this.state.isLoading}
-          fieldErrorMessageMap={this.state.fieldErrorMessageMap}
-          formErrorMessages={this.state.serverErrors}
-          lastTimeFieldUpdated={(new Date()).getTime()}
-          // onBlur={() => { /* noop */ }}
+          fieldMessageMap={this.state.fieldErrorMessageMap}
+          formMessages={this.state.serverErrors}
           onSubmit={this.onSubmit}
-          // validator={() => { return {}; }}
         />
       </div>
     );
@@ -84,7 +81,8 @@ export class Example1 extends React.Component<IExample1Props, IExample1State> {
       serverErrors.push(this.serverError.value);
     }
 
-    const fieldMessageMap: Datos.IErrorMessageMap = {};
+    // Simulating some server side error messages
+    const fieldMessageMap: Datos.IFieldMessageMap = {};
     if (this.existingLastName && this.existingLastName.value) {
       if (formData.lastName.toLowerCase() === this.existingLastName.value.toLowerCase()) {
         fieldMessageMap['lastName'] = {

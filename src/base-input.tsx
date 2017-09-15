@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {IHTMLEvent, noop, IFieldMessage} from 'utility';
+import {IHTMLEvent, noop, IFieldMessage, FieldMessageType} from 'utility';
+import * as cx from 'classnames';
 
 export interface IBaseInputProps {
   value: string;
@@ -11,8 +12,10 @@ export interface IBaseInputProps {
   onBlur?: (event: IHTMLEvent) => void;
   fieldMessage?: IFieldMessage|null;
   errorClassName?: string;
+  warnClassName?: string;
   containerClassName?: string;
   errorContainerClassName?: string;
+  warnContainerClassName?: string;
 }
 
 export interface IBaseInputState {
@@ -22,13 +25,15 @@ export interface IBaseInputState {
   isChecked: boolean;
 }
 
-export class BaseInput<T extends IBaseInputProps, S extends IBaseInputState> extends React.Component<T, S> {
+export class BaseInput<P extends IBaseInputProps, S extends IBaseInputState> extends React.Component<P, S> {
 
-  constructor(props: T) {
+  constructor(props: P) {
     super(props);
 
     this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
+    this.resolveClassName = this.resolveClassName.bind(this);
+    this.resolveContainerClassName = this.resolveContainerClassName.bind(this);
 
     this.state = {
       value: this.props.value,
@@ -75,6 +80,40 @@ export class BaseInput<T extends IBaseInputProps, S extends IBaseInputState> ext
     () => {
       const func = this.props.onBlur || noop;
       func(event);
+    });
+  }
+
+  protected resolveClassName() {
+    const {
+      className,
+      errorClassName,
+      warnClassName,
+      fieldMessage} = this.props as P;
+    return cx({
+      [className]: !!className,
+      [errorClassName]: !!fieldMessage
+        && !!errorClassName
+        && fieldMessage.fieldMessageType === FieldMessageType.ERROR,
+      [warnClassName]: !!fieldMessage
+        && !!warnClassName
+        && fieldMessage.fieldMessageType === FieldMessageType.WARN
+    });
+  }
+
+  protected resolveContainerClassName() {
+    const {
+      containerClassName,
+      errorContainerClassName,
+      warnContainerClassName,
+      fieldMessage} = this.props as P;
+    return cx({
+      [containerClassName]: !!containerClassName,
+      [errorContainerClassName]: !!fieldMessage
+        && !!errorContainerClassName
+        && fieldMessage.fieldMessageType === FieldMessageType.ERROR,
+      [warnContainerClassName]: !!fieldMessage
+        && !!warnContainerClassName
+        && fieldMessage.fieldMessageType === FieldMessageType.WARN
     });
   }
 
