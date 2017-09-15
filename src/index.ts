@@ -1,14 +1,5 @@
 
-export interface ITestStuff {
-  id: number;
-  label: string;
-}
-
-const data: ITestStuff = {
-  id: 1,
-  label: 'test'
-};
-
-export {
-  data
-};
+export * from 'base-form';
+export * from 'date';
+export * from 'input';
+export * from 'select';

@@ -1,13 +1,5 @@
 import * as React from 'react';
-
-export interface IHTMLEvent {
-  target: {
-    type: string;
-    name: string;
-    checked?: boolean;
-    value?: string;
-  };
-}
+import {IHTMLEvent} from 'utility';
 
 export interface IBaseFormProps<T extends object> {
   formData: T;

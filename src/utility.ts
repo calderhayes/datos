@@ -7,3 +7,13 @@ export interface IErrorable {
   containerClassName?: string;
   errorContainerClassName?: string;
 }
+
+export interface IHTMLEvent {
+  target: {
+    type: string;
+    name: string;
+    checked?: boolean;
+    value?: string;
+  };
+  persist(): void;
+}

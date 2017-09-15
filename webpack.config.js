@@ -27,6 +27,26 @@ module.exports = {
           lib: ['es6', 'dom'],
           useForkChecker: true
         }
+      },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
+      },
+      {
+        test: /\.(ttf|eot|svg|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "url-loader"
+      },
+      {
+        test: /\.(png)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "file-loader"
+      },
+      {
+        test: /\.woff(\?\S*)?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+      },
+      {
+        test: /\.woff2(\?\S*)?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff2'
       }
     ]
   },

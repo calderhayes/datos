@@ -1,32 +1,19 @@
 import * as React from 'react';
 import * as cx from 'classnames';
-import {noop, IErrorable} from 'utility';
+import {IErrorable} from 'utility';
+import {BaseInput, IBaseInputProps, IBaseInputState} from 'base-input';
 
-export interface IHTMLInputProps {
-  onChange?: Function;
-  onBlur?: Function;
-  disabled?: boolean;
-  className?: string;
+export interface IInputProps extends IBaseInputProps, IErrorable {
   placeholder?: string;
-  type?: string;
-  value?: string;
-  name?: string;
 }
 
-export interface IInputProps extends IHTMLInputProps, IErrorable {
-
-}
-
-export class Input extends React.Component<IInputProps, {}> {
+export class Input extends BaseInput<IInputProps, IBaseInputState> {
 
   private isCheckbox: boolean;
-  private value: string;
+  private defaultValue: string;
 
   constructor(props: IInputProps) {
     super(props);
-
-    this.isCheckbox = props.type === 'checkbox' || props.type === 'radio';
-    this.value = props.value || '';
   }
 
   public render() {
@@ -49,17 +36,19 @@ export class Input extends React.Component<IInputProps, {}> {
       [errorClassName]: !!errorMessage && !!errorClassName
     });
 
-    const checked = this.isCheckbox ? this.value : '';
+    // TODO: may have dedicated checkbox
+    const checked = this.isCheckbox ? this.defaultValue : '';
 
     return (
       <div className={containerClass}>
         <input
           {...(rest) as any}
           className={_className}
-          value={this.value}
+          defaultValue={this.defaultValue}
+          value={this.state.value}
           checked={checked}
-          onChange={this.props.onChange || noop}
-          onBlur={this.props.onBlur || noop}
+          onChange={this.onChange}
+          onBlur={this.onBlur}
         />
       </div>
     );
