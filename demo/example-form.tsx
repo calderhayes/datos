@@ -68,7 +68,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
         </ul>
 
         <div className='form-group'>
-          <label htmlFor='firstName'>First Name</label>
+          <label htmlFor={this.names.firstName}>First Name</label>
           <Datos.TextInput
             disabled={this.props.isLoading}
             errorContainerClassName='has-error'
@@ -86,7 +86,26 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
         </div>
 
         <div className='form-group'>
-          <label htmlFor='lastName'>Last Name</label>
+          <label htmlFor={this.names.middleName}>Middle Name</label>
+          <Datos.TextInput
+            disabled={this.props.isLoading}
+            errorContainerClassName='has-error'
+            className='form-control'
+            placeholder='Middle Name'
+            onBlur={this.onBlur}
+            name={this.names.middleName}
+            value={this.state.formData.middleName}
+            fieldMessage={this.state.fieldMessageMap.get(this.names.middleName)}
+          />
+          <Datos.ValidationMessage
+            fieldMessage={this.state.fieldMessageMap.get(this.names.middleName)}
+            className='help-block'
+            containerClassName='has-error'
+          />
+        </div>
+
+        <div className='form-group'>
+          <label htmlFor={this.names.lastName}>Last Name</label>
           <Datos.TextInput
             disabled={this.props.isLoading}
             errorContainerClassName='has-error'
@@ -104,7 +123,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
         </div>
 
         <div className='form-group'>
-          <label htmlFor='birthDate'>Birth Date</label>
+          <label htmlFor={this.names.birthDate}>Birth Date</label>
           <Datos.DateTimeInput
             disabled={this.props.isLoading}
             errorContainerClassName='has-error'
@@ -122,7 +141,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
         </div>
 
         <div className='form-check'>
-          <label htmlFor='allGood' className='form-check-label'>All Good?</label>
+          <label htmlFor={this.names.allGood} className='form-check-label'>All Good?</label>
           <Datos.CheckboxInput
             disabled={this.props.isLoading}
             errorContainerClassName='has-error'
