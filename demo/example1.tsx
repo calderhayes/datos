@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ExampleForm, IExampleFormData} from './example-form';
+import {ExampleForm, IExampleFormData, exampleFormFieldNames} from './example-form';
 import * as Datos from '../src';
 
 export interface IExample1Props {
@@ -86,7 +86,7 @@ export class Example1 extends React.Component<IExample1Props, IExample1State> {
     const fieldMessageMap = new Datos.FieldMessageMap();
     if (this.existingLastName && this.existingLastName.value) {
       if (formData.lastName.toLowerCase() === this.existingLastName.value.toLowerCase()) {
-        fieldMessageMap.add('lastName', {
+        fieldMessageMap.add(exampleFormFieldNames.lastName, {
           message: `Last name ${this.existingLastName.value} already exists!`,
           preventSubmitError: false
         });

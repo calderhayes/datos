@@ -17,15 +17,17 @@ export interface IExampleFormState extends Datos.IBaseFormState<IExampleFormData
 
 }
 
+export const exampleFormFieldNames = {
+  firstName: 'firstName',
+  middleName: 'middleName',
+  lastName: 'lastName',
+  birthDate: 'birthDate',
+  allGood: 'allGood'
+};
+
 export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormProps, IExampleFormState> {
 
-  private readonly names = {
-    firstName: 'firstName',
-    middleName: 'middleName',
-    lastName: 'lastName',
-    birthDate: 'birthDate',
-    allGood: 'allGood'
-  };
+  private readonly names = exampleFormFieldNames;
 
   public render() {
 
