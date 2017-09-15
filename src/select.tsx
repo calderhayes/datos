@@ -1,4 +1,4 @@
-import * as React from 'react';
+/*import * as React from 'react';
 import * as ReactSelect from 'react-select';
 import {noop, IErrorable} from 'utility';
 import * as cx from 'classnames';
@@ -47,4 +47,30 @@ export class Select<TValue>
       </div>
     );
   }
-}
+
+  private convertToHTMLEvent(selectValue: any) {
+    const value = (!!date && date.isValid) ? date.toDate().toISOString() : null;
+
+    const event: IHTMLEvent = {
+      target: {
+        type: 'date',
+        name: this.props.name,
+        checked: null,
+        value
+      },
+      persist: () => {
+        // do nothing?
+      }
+    };
+
+    return event;
+  }
+
+  private _onBlur(date: Moment) {
+    (this.props.onBlur || noop)(this.convertToHTMLEvent(date));
+  }
+
+  private _onChange(date: Moment) {
+    (this.props.onChange || noop)(this.convertToHTMLEvent(date));
+  }
+}*/

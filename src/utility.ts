@@ -1,13 +1,6 @@
 
 export const noop = () => { /* Do nothing */ };
 
-export interface IErrorable {
-  errorMessage?: string;
-  errorClassName?: string;
-  containerClassName?: string;
-  errorContainerClassName?: string;
-}
-
 export interface IHTMLEvent {
   target: {
     type: string;
@@ -16,4 +9,9 @@ export interface IHTMLEvent {
     value?: string;
   };
   persist(): void;
+}
+
+export interface IFieldMessage {
+  message: string;
+  preventSubmitError: boolean;
 }

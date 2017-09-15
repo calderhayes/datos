@@ -1,9 +1,8 @@
 import * as React from 'react';
 import * as cx from 'classnames';
-import {IErrorable} from 'utility';
 import {BaseInput, IBaseInputProps, IBaseInputState} from 'base-input';
 
-export interface IInputProps extends IBaseInputProps, IErrorable {
+export interface IInputProps extends IBaseInputProps {
   placeholder?: string;
 }
 
@@ -22,18 +21,18 @@ export class Input extends BaseInput<IInputProps, IBaseInputState> {
       containerClassName,
       errorContainerClassName,
       className,
-      errorMessage,
+      fieldMessage,
       ...rest
     } = this.props;
 
     const containerClass = cx({
       [containerClassName]: !!containerClassName,
-      [errorContainerClassName]: !!errorMessage && !!errorContainerClassName
+      [errorContainerClassName]: !!fieldMessage && !!errorContainerClassName
     });
 
     const _className = cx({
       [className]: !!className,
-      [errorClassName]: !!errorMessage && !!errorClassName
+      [errorClassName]: !!fieldMessage && !!errorClassName
     });
 
     return (

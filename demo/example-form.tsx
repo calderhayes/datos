@@ -12,7 +12,7 @@ export interface IExampleFormProps extends Datos.IBaseFormProps<IExampleFormData
 
 }
 
-export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormProps, {}> {
+export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormProps, Datos.IBaseFormState> {
 
   public render() {
 

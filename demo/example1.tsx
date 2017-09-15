@@ -6,7 +6,7 @@ export interface IExample1Props {
 }
 
 export interface IExample1State {
-  formData: IExampleFormData
+  formData: IExampleFormData;
 }
 
 export class Example1 extends React.Component<IExample1Props, IExample1State> {
@@ -14,6 +14,7 @@ export class Example1 extends React.Component<IExample1Props, IExample1State> {
   constructor(props: IExample1Props) {
     super(props);
 
+    // tslint:disable-next-line:no-magic-numbers
     const birthDate = new Date(1988, 12, 13);
     this.state = {
       formData: {
@@ -33,9 +34,11 @@ export class Example1 extends React.Component<IExample1Props, IExample1State> {
           formData={this.state.formData}
           isLoading={false}
           fieldErrorMessageMap={{}}
-          onBlur={() => { /* noop */ }}
-          onSubmit={() => { /* noop */ }}
-          validator={() => false}
+          formErrorMessages={new Array<string>()}
+          lastTimeFieldUpdated={(new Date()).getTime()}
+          // onBlur={() => { /* noop */ }}
+          // onSubmit={() => { /* noop */ }}
+          validator={() => { return {}; }}
         />
       </div>
     );

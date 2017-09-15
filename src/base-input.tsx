@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {IHTMLEvent, noop} from 'utility';
+import {IHTMLEvent, noop, IFieldMessage} from 'utility';
 
 export interface IBaseInputProps {
   value: string;
@@ -9,6 +9,10 @@ export interface IBaseInputProps {
   className?: string;
   onChange?: (event: IHTMLEvent) => void;
   onBlur?: (event: IHTMLEvent) => void;
+  fieldMessage?: IFieldMessage|null;
+  errorClassName?: string;
+  containerClassName?: string;
+  errorContainerClassName?: string;
 }
 
 export interface IBaseInputState {
