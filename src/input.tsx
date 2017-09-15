@@ -9,11 +9,11 @@ export interface IInputProps extends IBaseInputProps, IErrorable {
 
 export class Input extends BaseInput<IInputProps, IBaseInputState> {
 
-  private isCheckbox: boolean;
   private defaultValue: string;
 
   constructor(props: IInputProps) {
     super(props);
+    this.defaultValue = this.props.value;
   }
 
   public render() {
@@ -36,9 +36,6 @@ export class Input extends BaseInput<IInputProps, IBaseInputState> {
       [errorClassName]: !!errorMessage && !!errorClassName
     });
 
-    // TODO: may have dedicated checkbox
-    const checked = this.isCheckbox ? this.defaultValue : '';
-
     return (
       <div className={containerClass}>
         <input
@@ -46,7 +43,6 @@ export class Input extends BaseInput<IInputProps, IBaseInputState> {
           className={_className}
           defaultValue={this.defaultValue}
           value={this.state.value}
-          checked={checked}
           onChange={this.onChange}
           onBlur={this.onBlur}
         />

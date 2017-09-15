@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {IHTMLEvent} from 'utility';
+import {IHTMLEvent, noop} from 'utility';
 
 export interface IBaseFormProps<T extends object> {
   formData: T;
-  onBlur: (formData: T) => void;
-  onSubmit: (formData: T) => void;
-  validator: (formData: T) => boolean;
+  onBlur?: (formData: T) => void;
+  onSubmit?: (formData: T) => void;
+  validator?: (formData: T) => boolean;
   isLoading: boolean;
   formErrorMessages?: Array<string>;
   fieldErrorMessageMap: {
@@ -18,10 +18,9 @@ export abstract class BaseForm<T extends object, P extends IBaseFormProps<T>, S>
   constructor(props: P) {
     super(props);
     this.onBlur = this.onBlur.bind(this);
-    this.isFieldValid = this.isFieldValid.bind(this);
   }
 
-  protected get isValid() {
+  /*protected get isValid() {
     // Having some kind of error here, I suspect it is the tooling
     const data: T = this.props.formData as T;
     return this.props.validator(data);
@@ -29,7 +28,7 @@ export abstract class BaseForm<T extends object, P extends IBaseFormProps<T>, S>
 
   protected isFieldValid(fieldName: string) {
     return !!this.props.fieldErrorMessageMap[fieldName];
-  }
+  }*/
 
   protected onBlur(event: IHTMLEvent) {
     const target = event.target;
@@ -40,8 +39,11 @@ export abstract class BaseForm<T extends object, P extends IBaseFormProps<T>, S>
       ...(this.props.formData as any)
     };
 
+    // TODO: Run validation here?
+    // Return error messages as a group, aggregate with props, save to state?
+
     data[name] = value;
-    this.props.onBlur(data);
+    (this.props.onBlur || noop)(data);
   }
 
 }
