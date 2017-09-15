@@ -30,7 +30,8 @@ export class Example1 extends React.Component<IExample1Props, IExample1State> {
         firstName: 'bobz',
         middleName: '',
         lastName: '',
-        birthDate
+        birthDate,
+        allGood: false
       },
       isLoading: false,
       serverErrors: new Array<string>(),

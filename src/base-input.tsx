@@ -3,9 +3,8 @@ import {IHTMLEvent, noop, IFieldMessage, FieldMessageType} from 'utility';
 import * as cx from 'classnames';
 
 export interface IBaseInputProps {
-  value: string;
+  value?: string;
   name: string;
-  type: string;
   disabled?: boolean;
   className?: string;
   onChange?: (event: IHTMLEvent) => void;
@@ -22,10 +21,11 @@ export interface IBaseInputState {
   value: string;
   isChanged: boolean;
   isUsed: boolean;
-  isChecked: boolean;
 }
 
-export class BaseInput<P extends IBaseInputProps, S extends IBaseInputState> extends React.Component<P, S> {
+export abstract class BaseInput<P extends IBaseInputProps, S extends IBaseInputState> extends React.Component<P, S> {
+
+  protected readonly abstract type: string = 'text';
 
   constructor(props: P) {
     super(props);
@@ -38,7 +38,6 @@ export class BaseInput<P extends IBaseInputProps, S extends IBaseInputState> ext
     this.state = {
       value: this.props.value,
       isUsed: false,
-      isChecked: false,
       isChanged: false
     } as S;
   }
@@ -53,17 +52,13 @@ export class BaseInput<P extends IBaseInputProps, S extends IBaseInputState> ext
   }
 
   protected onChange(event: IHTMLEvent) {
-    const isCheckbox = this.props.type === 'checkbox' || this.props.type === 'radio';
-    const isChecked = isCheckbox ? !this.state.isChecked : true;
-    const checkboxValue = isChecked ? event.target.value : '';
-    const value = isCheckbox ? checkboxValue : event.target.value;
+    const value = event.target.value;
 
     event.persist();
-
+    console.warn('onchange target checked', event.target.checked);
     this.setState({
       value,
-      isChanged: true,
-      isChecked
+      isChanged: true
     },
     () => {
       const func = this.props.onChange || noop;

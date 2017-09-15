@@ -6,6 +6,7 @@ export interface IExampleFormData {
   middleName: string;
   lastName: string;
   birthDate: Date;
+  allGood: boolean;
 }
 
 export interface IExampleFormProps extends Datos.IBaseFormProps<IExampleFormData> {
@@ -58,8 +59,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
 
         <div className='form-group'>
           <label htmlFor='firstName'>First Name</label>
-          <Datos.Input
-            type='text'
+          <Datos.TextInput
             disabled={this.props.isLoading}
             errorContainerClassName='has-error'
             className='form-control'
@@ -77,8 +77,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
 
         <div className='form-group'>
           <label htmlFor='lastName'>Last Name</label>
-          <Datos.Input
-            type='text'
+          <Datos.TextInput
             disabled={this.props.isLoading}
             errorContainerClassName='has-error'
             className='form-control'
@@ -97,7 +96,6 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
         <div className='form-group'>
           <label htmlFor='birthDate'>Birth Date</label>
           <Datos.DateTimeInput
-            type='date'
             disabled={this.props.isLoading}
             errorContainerClassName='has-error'
             className='form-control'
@@ -108,6 +106,24 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
           />
           <Datos.ValidationMessage
             fieldMessage={this.state.fieldMessageMap['birthDate']}
+            className='help-block'
+            containerClassName='has-error'
+          />
+        </div>
+
+        <div className='form-check'>
+          <label htmlFor='allGood' className='form-check-label'>All Good?</label>
+          <Datos.CheckboxInput
+            disabled={this.props.isLoading}
+            errorContainerClassName='has-error'
+            className='form-check-input'
+            onChange={this.onBlur}
+            name='allGood'
+            checked={this.state.formData.allGood}
+            fieldMessage={this.state.fieldMessageMap['allGood']}
+          />
+          <Datos.ValidationMessage
+            fieldMessage={this.state.fieldMessageMap['allGood']}
             className='help-block'
             containerClassName='has-error'
           />

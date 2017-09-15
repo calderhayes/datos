@@ -1,15 +1,13 @@
 import * as React from 'react';
 import {BaseInput, IBaseInputProps, IBaseInputState} from 'base-input';
 
-export interface IInputProps extends IBaseInputProps {
-  placeholder?: string;
+export interface ICheckboxInputProps extends IBaseInputProps {
+  checked: boolean;
 }
 
-export class Input extends BaseInput<IInputProps, IBaseInputState> {
+export class CheckboxInput extends BaseInput<ICheckboxInputProps, IBaseInputState> {
 
-  constructor(props: IInputProps) {
-    super(props);
-  }
+  protected readonly type: string = 'checkbox';
 
   public render() {
     const {
@@ -21,17 +19,18 @@ export class Input extends BaseInput<IInputProps, IBaseInputState> {
       ...rest
     } = this.props;
 
+    const checked = this.props.checked ? 'checked' : '';
+
     return (
       <div className={this.resolveContainerClassName()}>
         <input
           {...(rest) as any}
+          type='checkbox'
           className={this.resolveClassName()}
-          value={this.state.value}
-          onChange={this.onChange}
-          onBlur={this.onBlur}
+          checked={checked}
+          onClick={this.onChange}
         />
       </div>
     );
   }
 }
-

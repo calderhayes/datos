@@ -52,6 +52,8 @@ const ReactDateTimeInput: any = require('react-datetime');
 
 export class DateTimeInput extends BaseInput<IDateTimeInputProps, IBaseInputState> {
 
+  protected readonly type: string = 'date';
+
   constructor(props: IDateTimeInputProps) {
     super(props);
 

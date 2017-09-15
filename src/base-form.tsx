@@ -65,7 +65,9 @@ extends React.Component<P, S> {
   }
 
   protected onBlur(event: IHTMLEvent) {
+    console.warn('original form date', this.state.formData);
     const value = this.getValueFromEvent(event);
+    console.warn('value from event', value, event.target.checked);
     const name = event.target.name;
 
     let data = {
@@ -73,7 +75,7 @@ extends React.Component<P, S> {
     };
 
     data[name] = value;
-
+    console.warn('new form data', data);
     this.validate(data);
     this.setState({
       formData: data
