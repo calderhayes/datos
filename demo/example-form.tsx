@@ -7,6 +7,7 @@ export interface IExampleFormData {
   lastName: string;
   birthDate: Date;
   allGood: boolean;
+  hobby: string;
 }
 
 export interface IExampleFormProps extends Datos.IBaseFormProps<IExampleFormData> {
@@ -22,8 +23,24 @@ export const exampleFormFieldNames = {
   middleName: 'middleName',
   lastName: 'lastName',
   birthDate: 'birthDate',
-  allGood: 'allGood'
+  allGood: 'allGood',
+  hobby: 'hobby'
 };
+
+const hobbies = [
+  {
+    value: 'baseball',
+    label: 'Baseball'
+  },
+  {
+    value: 'pcs',
+    label: 'Windows Desktops'
+  },
+  {
+    value: 'macs',
+    label: 'Apple Macintosh'
+  }
+];
 
 export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormProps, IExampleFormState> {
 
@@ -73,7 +90,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             disabled={this.props.isLoading}
             errorContainerClassName='has-error'
             className='form-control'
-            onBlur={this.onBlur}
+            onBlur={this.updateFormData}
             name={this.names.firstName}
             value={this.state.formData.firstName}
             fieldMessage={this.state.fieldMessageMap.get(this.names.firstName)}
@@ -92,7 +109,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             errorContainerClassName='has-error'
             className='form-control'
             placeholder='Middle Name'
-            onBlur={this.onBlur}
+            onBlur={this.updateFormData}
             name={this.names.middleName}
             value={this.state.formData.middleName}
             fieldMessage={this.state.fieldMessageMap.get(this.names.middleName)}
@@ -110,7 +127,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             disabled={this.props.isLoading}
             errorContainerClassName='has-error'
             className='form-control'
-            onBlur={this.onBlur}
+            onBlur={this.updateFormData}
             name={this.names.lastName}
             value={this.state.formData.lastName}
             fieldMessage={this.state.fieldMessageMap.get(this.names.lastName)}
@@ -128,7 +145,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             disabled={this.props.isLoading}
             errorContainerClassName='has-error'
             className='form-control'
-            onBlur={this.onBlur}
+            onBlur={this.updateFormData}
             name={this.names.birthDate}
             value={this.state.formData.birthDate.toISOString()}
             fieldMessage={this.state.fieldMessageMap.get(this.names.birthDate)}
@@ -140,13 +157,32 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
           />
         </div>
 
+        <div className='form-group'>
+          <label htmlFor={this.names.hobby}>Hobby</label>
+          <Datos.SelectInput
+            defaultOptions={hobbies}
+            name={this.names.hobby}
+            errorContainerClassName='has-error'
+            className='form-control'
+            onChange={this.updateFormData}
+            canHaveUnselected={true}
+            value={this.state.formData.hobby}
+            fieldMessage={this.state.fieldMessageMap.get(this.names.hobby)}
+          />
+          <Datos.ValidationMessage
+            fieldMessage={this.state.fieldMessageMap.get(this.names.hobby)}
+            className='help-block'
+            containerClassName='has-error'
+          />
+        </div>
+
         <div className='form-check'>
           <label htmlFor={this.names.allGood} className='form-check-label'>All Good?</label>
           <Datos.CheckboxInput
             disabled={this.props.isLoading}
             errorContainerClassName='has-error'
             className='form-check-input'
-            onChange={this.onBlur}
+            onChange={this.updateFormData}
             name={this.names.allGood}
             checked={this.state.formData.allGood}
             fieldMessage={this.state.fieldMessageMap.get(this.names.allGood)}
@@ -178,22 +214,29 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
     const errorMap = new Datos.FieldMessageMap();
     if (formData.firstName.indexOf('z') !== -1) {
       // Some arbitrary tule
-      errorMap.add('firstName', {
+      errorMap.add(exampleFormFieldNames.firstName, {
         message: 'First name cannot contain a "z"!',
         preventSubmitError: true
       });
     }
 
     if (formData.firstName.length > 0 && formData.lastName.length === 0) {
-      errorMap.add('lastName', {
+      errorMap.add(exampleFormFieldNames.lastName, {
         message: 'Cannot provide a first name without a last name!',
         preventSubmitError: true
       });
     }
 
     if (formData.birthDate.getTime() > (new Date()).getTime()) {
-      errorMap.add('birthDate', {
+      errorMap.add(exampleFormFieldNames.birthDate, {
         message: 'Birth date cannot be in the future!',
+        preventSubmitError: true
+      });
+    }
+
+    if (!formData.hobby) {
+      errorMap.add(exampleFormFieldNames.hobby, {
+        message: 'Must have a hobby selected!',
         preventSubmitError: true
       });
     }

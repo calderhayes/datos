@@ -25,7 +25,7 @@ extends React.Component<P, S> {
 
   constructor(props: P) {
     super(props);
-    this.onBlur = this.onBlur.bind(this);
+    this.updateFormData = this.updateFormData.bind(this);
     this.validate = this.validate.bind(this);
     this.defaultValidator = this.defaultValidator.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -51,7 +51,7 @@ extends React.Component<P, S> {
     return this.state.fieldMessageMap.canSubmit();
   }
 
-  protected onBlur(event: IHTMLEvent) {
+  protected updateFormData(event: IHTMLEvent) {
     const value = this.getValueFromEvent(event);
     const name = event.target.name;
 
