@@ -25,7 +25,7 @@ export interface IBaseInputState {
 
 export abstract class BaseInput<P extends IBaseInputProps, S extends IBaseInputState> extends React.Component<P, S> {
 
-  protected readonly abstract type: string = 'text';
+  protected readonly abstract type: string;
 
   constructor(props: P) {
     super(props);
@@ -55,7 +55,6 @@ export abstract class BaseInput<P extends IBaseInputProps, S extends IBaseInputS
     const value = event.target.value;
 
     event.persist();
-    console.warn('onchange target checked', event.target.checked);
     this.setState({
       value,
       isChanged: true
@@ -116,7 +115,7 @@ export abstract class BaseInput<P extends IBaseInputProps, S extends IBaseInputS
         && fieldMessageType === FieldMessageType.ERROR,
       [warnContainerClassName]: !!fieldMessage
         && !!warnContainerClassName
-        && fieldMessageType === FieldMessageType.WARN,
+        && fieldMessageType === FieldMessageType.WARN
     });
   }
 

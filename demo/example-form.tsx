@@ -24,7 +24,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
     const canSubmit = this.canSubmit && !this.props.isLoading;
     // See index.html for the CSS3 required for this spinner
     const spinner = this.props.isLoading ?
-      <span className="glyphicon glyphicon-refresh spinning"></span> : null;
+      <span className='glyphicon glyphicon-refresh spinning'></span> : null;
 
     const formErrors = this.props.formMessages.map((m, i) => {
       return (
@@ -66,10 +66,10 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             onBlur={this.onBlur}
             name='firstName'
             value={this.state.formData.firstName}
-            fieldMessage={this.state.fieldMessageMap['firstName']}
+            fieldMessage={this.state.fieldMessageMap.get('firstName')}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.fieldMessageMap['firstName']}
+            fieldMessage={this.state.fieldMessageMap.get('firstName')}
             className='help-block'
             containerClassName='has-error'
           />
@@ -84,10 +84,10 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             onBlur={this.onBlur}
             name='lastName'
             value={this.state.formData.lastName}
-            fieldMessage={this.state.fieldMessageMap['lastName']}
+            fieldMessage={this.state.fieldMessageMap.get('lastName')}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.fieldMessageMap['lastName']}
+            fieldMessage={this.state.fieldMessageMap.get('lastName')}
             className='help-block'
             containerClassName='has-error'
           />
@@ -102,10 +102,10 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             onBlur={this.onBlur}
             name='birthDate'
             value={this.state.formData.birthDate.toISOString()}
-            fieldMessage={this.state.fieldMessageMap['birthDate']}
+            fieldMessage={this.state.fieldMessageMap.get('birthDate')}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.fieldMessageMap['birthDate']}
+            fieldMessage={this.state.fieldMessageMap.get('birthDate')}
             className='help-block'
             containerClassName='has-error'
           />
@@ -120,10 +120,10 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             onChange={this.onBlur}
             name='allGood'
             checked={this.state.formData.allGood}
-            fieldMessage={this.state.fieldMessageMap['allGood']}
+            fieldMessage={this.state.fieldMessageMap.get('allGood')}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.fieldMessageMap['allGood']}
+            fieldMessage={this.state.fieldMessageMap.get('allGood')}
             className='help-block'
             containerClassName='has-error'
           />
@@ -134,7 +134,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
           canSubmit={canSubmit}
           onSubmit={() => {
             this.onSubmit();
-            console.warn('SUBMITTED', this.state.formData);
+            console.info('SUBMITTED', this.state.formData);
            }}
         >
           {spinner} Submit Data
@@ -145,28 +145,28 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
 
   }
 
-  protected defaultValidator(formData: IExampleFormData): Datos.IFieldMessageMap {
-    const errorMap = {} as Datos.IFieldMessageMap;
+  protected defaultValidator(formData: IExampleFormData): Datos.FieldMessageMap {
+    const errorMap = new Datos.FieldMessageMap();
     if (formData.firstName.indexOf('z') !== -1) {
       // Some arbitrary tule
-      errorMap['firstName'] = {
+      errorMap.add('firstName', {
         message: 'First name cannot contain a "z"!',
         preventSubmitError: true
-      };
+      });
     }
 
     if (formData.firstName.length > 0 && formData.lastName.length === 0) {
-      errorMap['lastName'] = {
+      errorMap.add('lastName', {
         message: 'Cannot provide a first name without a last name!',
         preventSubmitError: true
-      };
+      });
     }
 
     if (formData.birthDate.getTime() > (new Date()).getTime()) {
-      errorMap['birthDate'] = {
+      errorMap.add('birthDate', {
         message: 'Birth date cannot be in the future!',
         preventSubmitError: true
-      };
+      });
     }
 
     return errorMap;

@@ -7,7 +7,7 @@ export interface ICheckboxInputProps extends IBaseInputProps {
 
 export class CheckboxInput extends BaseInput<ICheckboxInputProps, IBaseInputState> {
 
-  protected readonly type: string = 'checkbox';
+  protected readonly type = 'checkbox';
 
   public render() {
     const {

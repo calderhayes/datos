@@ -9,16 +9,16 @@ export interface IHTMLEvent {
     value?: string;
   };
   persist(): void;
-}
+};
 
 export enum FieldMessageType {
-  INFO = "INFO",
-  ERROR = "ERROR",
-  WARN = "WARN"
-}
+  INFO = 'INFO',
+  ERROR = 'ERROR',
+  WARN = 'WARN'
+};
 
 export interface IFieldMessage {
   message: string;
   preventSubmitError: boolean;
-  fieldMessageType?: FieldMessageType
-}
+  fieldMessageType?: FieldMessageType;
+};

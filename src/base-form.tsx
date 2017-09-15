@@ -1,24 +1,21 @@
 import * as React from 'react';
-import {IHTMLEvent, noop, IFieldMessage} from 'utility';
-
-export interface IFieldMessageMap {
-  [name: string]: IFieldMessage;
-}
+import {IHTMLEvent, noop} from 'utility';
+import {FieldMessageMap} from 'field-message-map';
 
 export interface IBaseFormProps<T extends object> {
   defaultFormData: T;
   onBlur?: (formData: T) => void;
   onSubmit?: (formData: T) => void;
-  validator?: (formData: T) => IFieldMessageMap;
+  validator?: (formData: T) => FieldMessageMap;
   isLoading: boolean;
   formMessages?: Array<string>;
   // We may need something like this if we are validation externally?
   // lastTimeFieldUpdated: number;
-  fieldMessageMap: IFieldMessageMap;
+  fieldMessageMap: FieldMessageMap;
 }
 
 export interface IBaseFormState<T extends object> {
-  fieldMessageMap: IFieldMessageMap;
+  fieldMessageMap: FieldMessageMap;
   formData: T;
 }
 
@@ -34,7 +31,7 @@ extends React.Component<P, S> {
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      fieldMessageMap: {},
+      fieldMessageMap: new FieldMessageMap(),
       formData: this.props.defaultFormData
     } as S;
   }
@@ -46,36 +43,23 @@ extends React.Component<P, S> {
     }
   }*/
 
-  protected defaultValidator(_: T): IFieldMessageMap {
-    return {};
+  protected defaultValidator(_: T): FieldMessageMap {
+    return new FieldMessageMap();
   };
 
   protected get canSubmit() {
-    for (const prop in this.state.fieldMessageMap) {
-      if (!this.state.fieldMessageMap.hasOwnProperty(prop)) {
-        continue;
-      }
-      const val = this.state.fieldMessageMap[prop];
-      if (val && val.preventSubmitError) {
-        return false;
-      }
-    }
-
-    return true;
+    return this.state.fieldMessageMap.canSubmit();
   }
 
   protected onBlur(event: IHTMLEvent) {
-    console.warn('original form date', this.state.formData);
     const value = this.getValueFromEvent(event);
-    console.warn('value from event', value, event.target.checked);
     const name = event.target.name;
 
-    let data = {
+    const data = {
       ...(this.state.formData as any)
     };
 
     data[name] = value;
-    console.warn('new form data', data);
     this.validate(data);
     this.setState({
       formData: data
@@ -86,10 +70,9 @@ extends React.Component<P, S> {
   protected validate(data: T, callback?: () => void) {
     const validator = this.props.validator || this.defaultValidator;
     const fieldMessageMap = validator(data);
-    const map: IFieldMessageMap = Object.assign(
-      {},
-      this.props.fieldMessageMap,
-      fieldMessageMap);
+    const map: FieldMessageMap = this.props
+      .fieldMessageMap
+      .addOrOverrideWithMap(fieldMessageMap);
     this.setState({
       fieldMessageMap: map
     }, callback || noop);

@@ -10,7 +10,7 @@ export interface IExample1State {
   formData: IExampleFormData;
   isLoading: boolean;
   serverErrors: Array<string>;
-  fieldErrorMessageMap: Datos.IFieldMessageMap;
+  fieldErrorMessageMap: Datos.FieldMessageMap;
 }
 
 export class Example1 extends React.Component<IExample1Props, IExample1State> {
@@ -35,7 +35,7 @@ export class Example1 extends React.Component<IExample1Props, IExample1State> {
       },
       isLoading: false,
       serverErrors: new Array<string>(),
-      fieldErrorMessageMap: {}
+      fieldErrorMessageMap: new Datos.FieldMessageMap()
     };
   }
 
@@ -83,13 +83,13 @@ export class Example1 extends React.Component<IExample1Props, IExample1State> {
     }
 
     // Simulating some server side error messages
-    const fieldMessageMap: Datos.IFieldMessageMap = {};
+    const fieldMessageMap: Datos.FieldMessageMap = new Datos.FieldMessageMap();
     if (this.existingLastName && this.existingLastName.value) {
       if (formData.lastName.toLowerCase() === this.existingLastName.value.toLowerCase()) {
-        fieldMessageMap['lastName'] = {
+        fieldMessageMap.add('lastName', {
           message: `Last name ${this.existingLastName.value} already exists!`,
           preventSubmitError: false
-        };
+        });
       }
     }
 
@@ -101,13 +101,13 @@ export class Example1 extends React.Component<IExample1Props, IExample1State> {
     async () => {
       // Simulate loading
       await new Promise((resolve, _) => {
+        // tslint:disable-next-line:no-magic-numbers
         setTimeout(() => resolve(), 1000);
       });
       this.setState({
         isLoading: false
       });
     });
-    
   }
 
 }

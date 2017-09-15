@@ -7,7 +7,7 @@ export interface IInputProps extends IBaseInputProps {
 
 export class TextInput extends BaseInput<IInputProps, IBaseInputState> {
 
-  protected type: string = 'text';
+  protected type = 'text';
 
   constructor(props: IInputProps) {
     super(props);

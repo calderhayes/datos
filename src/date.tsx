@@ -52,7 +52,7 @@ const ReactDateTimeInput: any = require('react-datetime');
 
 export class DateTimeInput extends BaseInput<IDateTimeInputProps, IBaseInputState> {
 
-  protected readonly type: string = 'date';
+  protected readonly type = 'date';
 
   constructor(props: IDateTimeInputProps) {
     super(props);
@@ -114,7 +114,7 @@ export class DateTimeInput extends BaseInput<IDateTimeInputProps, IBaseInputStat
         type: 'date',
         name: this.props.name,
         checked: null,
-        value: value
+        value
       },
       persist: () => {
         // do nothing?
