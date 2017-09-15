@@ -1,11 +1,10 @@
 import * as React from 'react';
 import 'react-datetime/css/react-datetime.css';
-import {Moment} from 'moment';
-import {noop, IHTMLEvent} from 'utility';
-import {IBaseInputProps} from 'base-input';
-import * as cx from 'classnames';
+import * as moment from 'moment';
+import {IHTMLEvent} from 'utility';
+import {IBaseInputProps, BaseInput, IBaseInputState} from 'base-input';
 
-export type ParseableDate = Date|Moment|string;
+export type ParseableDate = Date|moment.Moment|string;
 
 export enum DateInputViewMode {
   YEARS = 'years',
@@ -51,7 +50,7 @@ export interface IDateTimeInputProps extends IReactDateTimeInputProps, IBaseInpu
 // tslint:disable-next-line:no-var-requires no-require-imports
 const ReactDateTimeInput: any = require('react-datetime');
 
-export class DateTimeInput extends React.Component<IDateTimeInputProps, {}> {
+export class DateTimeInput extends BaseInput<IDateTimeInputProps, IBaseInputState> {
 
   constructor(props: IDateTimeInputProps) {
     super(props);
@@ -67,40 +66,53 @@ export class DateTimeInput extends React.Component<IDateTimeInputProps, {}> {
       errorContainerClassName,
       className,
       fieldMessage,
+      dateFormat,
       ...rest
     } = this.props;
 
-    const containerClass = cx({
-      [containerClassName]: !!containerClassName,
-      [errorContainerClassName]: !!fieldMessage && !!errorContainerClassName
-    });
-
-    const _className = cx({
-      [className]: !!className,
-      [errorClassName]: !!fieldMessage && !!errorClassName
-    });
-
     return (
-      <div className={containerClass}>
+      <div className={this.resolveContainerClassName()}>
         <ReactDateTimeInput
           {...(rest) as any}
-          className={_className}
-          onChange={this._onChange || noop}
+          inputProps={{readOnly: true}}
+          input={true}
+          value={moment(this.state.value)}
+          className={this.resolveContainerClassName}
+          onChange={this._onChange}
           onBlur={this._onBlur}
         />
       </div>
     );
   }
 
-  private convertToHTMLEvent(date: Moment) {
-    const value = (!!date && date.isValid) ? date.toDate().toISOString() : null;
+  private convertToHTMLEvent(date: ParseableDate) {
+
+    let value: string = null;
+    if (date === undefined || date === null) {
+      value = null;
+    }
+    else if (typeof date === 'string') {
+      value = date;
+    }
+    else if (date instanceof Date) {
+      value = date.toISOString();
+    }
+    else {
+      const m = moment(date);
+      if (m.isValid()) {
+        value = m.toDate().toISOString();
+      }
+      else {
+        value = null;
+      }
+    }
 
     const event: IHTMLEvent = {
       target: {
         type: 'date',
         name: this.props.name,
         checked: null,
-        value
+        value: value
       },
       persist: () => {
         // do nothing?
@@ -110,12 +122,14 @@ export class DateTimeInput extends React.Component<IDateTimeInputProps, {}> {
     return event;
   }
 
-  private _onBlur(date: Moment) {
-    (this.props.onBlur || noop)(this.convertToHTMLEvent(date));
+  private _onBlur(date: ParseableDate) {
+    const event = this.convertToHTMLEvent(date);
+    this.onBlur(event);
   }
 
-  private _onChange(date: Moment) {
-    (this.props.onChange || noop)(this.convertToHTMLEvent(date));
+  private _onChange(date: ParseableDate) {
+    const event = this.convertToHTMLEvent(date);
+    this.onChange(event);
   }
 
 }

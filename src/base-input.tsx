@@ -89,14 +89,18 @@ export class BaseInput<P extends IBaseInputProps, S extends IBaseInputState> ext
       errorClassName,
       warnClassName,
       fieldMessage} = this.props as P;
+
+    const fieldMessageType = fieldMessage && fieldMessage.fieldMessageType ?
+      fieldMessage.fieldMessageType : FieldMessageType.ERROR;
+
     return cx({
       [className]: !!className,
       [errorClassName]: !!fieldMessage
         && !!errorClassName
-        && fieldMessage.fieldMessageType === FieldMessageType.ERROR,
+        && fieldMessageType === FieldMessageType.ERROR,
       [warnClassName]: !!fieldMessage
         && !!warnClassName
-        && fieldMessage.fieldMessageType === FieldMessageType.WARN
+        && fieldMessageType === FieldMessageType.WARN
     });
   }
 
@@ -106,14 +110,18 @@ export class BaseInput<P extends IBaseInputProps, S extends IBaseInputState> ext
       errorContainerClassName,
       warnContainerClassName,
       fieldMessage} = this.props as P;
+
+    const fieldMessageType = fieldMessage && fieldMessage.fieldMessageType ?
+      fieldMessage.fieldMessageType : FieldMessageType.ERROR;
+
     return cx({
       [containerClassName]: !!containerClassName,
       [errorContainerClassName]: !!fieldMessage
         && !!errorContainerClassName
-        && fieldMessage.fieldMessageType === FieldMessageType.ERROR,
+        && fieldMessageType === FieldMessageType.ERROR,
       [warnContainerClassName]: !!fieldMessage
         && !!warnContainerClassName
-        && fieldMessage.fieldMessageType === FieldMessageType.WARN
+        && fieldMessageType === FieldMessageType.WARN,
     });
   }
 

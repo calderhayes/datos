@@ -94,6 +94,25 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
           />
         </div>
 
+        <div className='form-group'>
+          <label htmlFor='birthDate'>Birth Date</label>
+          <Datos.DateTimeInput
+            type='date'
+            disabled={this.props.isLoading}
+            errorContainerClassName='has-error'
+            className='form-control'
+            onBlur={this.onBlur}
+            name='birthDate'
+            value={this.state.formData.birthDate.toISOString()}
+            fieldMessage={this.state.fieldMessageMap['birthDate']}
+          />
+          <Datos.ValidationMessage
+            fieldMessage={this.state.fieldMessageMap['birthDate']}
+            className='help-block'
+            containerClassName='has-error'
+          />
+        </div>
+
         <Datos.SubmitButton
           className='btn btn-primary'
           canSubmit={canSubmit}
@@ -111,7 +130,6 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
   }
 
   protected defaultValidator(formData: IExampleFormData): Datos.IFieldMessageMap {
-    console.warn('Validating...', formData);
     const errorMap = {} as Datos.IFieldMessageMap;
     if (formData.firstName.indexOf('z') !== -1) {
       // Some arbitrary tule
@@ -122,14 +140,19 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
     }
 
     if (formData.firstName.length > 0 && formData.lastName.length === 0) {
-      console.warn('lastname failure?', formData, formData.firstName, formData.lastName);
       errorMap['lastName'] = {
         message: 'Cannot provide a first name without a last name!',
         preventSubmitError: true
       };
     }
 
-    console.warn('validation complete', errorMap);
+    if (formData.birthDate.getTime() > (new Date()).getTime()) {
+      errorMap['birthDate'] = {
+        message: 'Birth date cannot be in the future!',
+        preventSubmitError: true
+      };
+    }
+
     return errorMap;
   }
 

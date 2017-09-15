@@ -24,7 +24,7 @@ export class Example1 extends React.Component<IExample1Props, IExample1State> {
     this.onSubmit = this.onSubmit.bind(this);
 
     // tslint:disable-next-line:no-magic-numbers
-    const birthDate = new Date(1988, 12, 13);
+    const birthDate = new Date();
     this.state = {
       formData: {
         firstName: 'bobz',
