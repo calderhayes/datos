@@ -18,7 +18,7 @@ There are peer dependencies on moment, react, and react-dom.
 
 # Why I built this
 
-Current solutions were not meeting my needs more my style. I ended up creating much of the components I required anyways, so I decided to make a simple utility until something more main stream meeted my needs.
+Current solutions were not meeting my needs more my style. I ended up creating much of the components I required anyways, so I decided to make a simple utility until something more main stream meets my needs.
 
 # Usage
 
