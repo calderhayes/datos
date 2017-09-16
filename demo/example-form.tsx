@@ -5,6 +5,7 @@ export interface IExampleFormData {
   firstName: string;
   middleName: string;
   lastName: string;
+  password: string;
   birthDate: Date;
   allGood: boolean;
   hobby: string;
@@ -22,6 +23,7 @@ export const exampleFormFieldNames = {
   firstName: 'firstName',
   middleName: 'middleName',
   lastName: 'lastName',
+  password: 'password',
   birthDate: 'birthDate',
   allGood: 'allGood',
   hobby: 'hobby'
@@ -140,6 +142,24 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
         </div>
 
         <div className='form-group'>
+          <label htmlFor={this.names.password}>Password</label>
+          <Datos.PasswordInput
+            disabled={this.props.isLoading}
+            errorContainerClassName='has-error'
+            className='form-control'
+            onBlur={this.updateFormData}
+            name={this.names.password}
+            value={this.state.formData.password}
+            fieldMessage={this.state.fieldMessageMap.get(this.names.password)}
+          />
+          <Datos.ValidationMessage
+            fieldMessage={this.state.fieldMessageMap.get(this.names.password)}
+            className='help-block'
+            containerClassName='has-error'
+          />
+        </div>
+
+        <div className='form-group'>
           <label htmlFor={this.names.birthDate}>Birth Date</label>
           <Datos.DateTimeInput
             disabled={this.props.isLoading}
@@ -237,6 +257,13 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
     if (!formData.hobby) {
       errorMap.add(exampleFormFieldNames.hobby, {
         message: 'Must have a hobby selected!',
+        preventSubmitError: true
+      });
+    }
+
+    if (!formData.password || formData.password.length === 0) {
+      errorMap.add(exampleFormFieldNames.password, {
+        message: 'A password must be provided',
         preventSubmitError: true
       });
     }

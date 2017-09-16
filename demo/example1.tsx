@@ -32,7 +32,8 @@ export class Example1 extends React.Component<IExample1Props, IExample1State> {
         lastName: '',
         birthDate,
         allGood: false,
-        hobby: ''
+        hobby: '',
+        password: ''
       },
       isLoading: false,
       serverErrors: new Array<string>(),

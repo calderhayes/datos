@@ -7,3 +7,4 @@ export * from './validation-message';
 export * from './checkbox';
 export * from './field-message-map';
 export * from './select';
+export * from './password';
