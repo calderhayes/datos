@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {IHTMLEvent, noop} from 'utility';
-import {FieldMessageMap} from 'field-message-map';
+import {IHTMLEvent, noop} from './utility';
+import {FieldMessageMap} from './field-message-map';
 
 export interface IBaseFormProps<T extends object> {
   defaultFormData: T;

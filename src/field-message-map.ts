@@ -1,4 +1,4 @@
-import {IFieldMessage} from 'utility';
+import {IFieldMessage} from './utility';
 
 interface IFieldMessageElement {
   key: string;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {IFieldMessage} from 'utility';
+import {IFieldMessage} from './utility';
 
 export interface IValidationMessageProps {
   fieldMessage: IFieldMessage;

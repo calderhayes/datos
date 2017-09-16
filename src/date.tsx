@@ -1,8 +1,8 @@
 import * as React from 'react';
 import 'react-datetime/css/react-datetime.css';
 import * as moment from 'moment';
-import {IHTMLEvent} from 'utility';
-import {IBaseInputProps, BaseInput, IBaseInputState} from 'base-input';
+import {IHTMLEvent} from './utility';
+import {IBaseInputProps, BaseInput, IBaseInputState} from './base-input';
 
 export type ParseableDate = Date|moment.Moment|string;
 

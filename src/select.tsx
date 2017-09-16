@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {BaseInput, IBaseInputProps, IBaseInputState} from 'base-input';
-import {IHTMLEvent} from 'utility';
+import {BaseInput, IBaseInputProps, IBaseInputState} from './base-input';
+import {IHTMLEvent} from './utility';
 
 export interface ISelectInputOption {
   value: string;

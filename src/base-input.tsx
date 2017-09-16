@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {IHTMLEvent, noop, IFieldMessage, FieldMessageType} from 'utility';
 import * as cx from 'classnames';
+import {IHTMLEvent, noop, IFieldMessage, FieldMessageType} from './utility';
 
 export interface IBaseInputProps {
   value?: string;

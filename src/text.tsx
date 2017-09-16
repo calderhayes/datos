@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {BaseInput, IBaseInputProps, IBaseInputState} from 'base-input';
+import {BaseInput, IBaseInputProps, IBaseInputState} from './base-input';
 
 export interface IInputProps extends IBaseInputProps {
   placeholder?: string;
