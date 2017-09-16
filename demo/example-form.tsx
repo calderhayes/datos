@@ -217,10 +217,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
         <Datos.SubmitButton
           className='btn btn-primary'
           canSubmit={canSubmit}
-          onSubmit={() => {
-            this.onSubmit();
-            console.info('SUBMITTED', this.state.formData);
-           }}
+          onSubmit={this.onSubmit}
         >
           {spinner} Submit Data
         </Datos.SubmitButton>
