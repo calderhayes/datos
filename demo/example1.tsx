@@ -90,7 +90,7 @@ export class Example1 extends React.Component<IExample1Props, IExample1State> {
       if (formData.lastName.toLowerCase() === this.existingLastName.value.toLowerCase()) {
         fieldMessageMap.add(exampleFormFieldNames.lastName, {
           message: `Last name ${this.existingLastName.value} already exists!`,
-          preventSubmitError: false
+          preventSubmit: false
         });
       }
     }

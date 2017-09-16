@@ -59,7 +59,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
       return (
         <li key={i.toString()}>
           <Datos.ValidationMessage
-            fieldMessage={{message: m, preventSubmitError: false}}
+            fieldMessage={{message: m, preventSubmit: false}}
             className='help-block'
             containerClassName='has-error'
           />
@@ -233,35 +233,35 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
       // Some arbitrary tule
       errorMap.add(exampleFormFieldNames.firstName, {
         message: 'First name cannot contain a "z"!',
-        preventSubmitError: true
+        preventSubmit: true
       });
     }
 
     if (formData.firstName.length > 0 && formData.lastName.length === 0) {
       errorMap.add(exampleFormFieldNames.lastName, {
         message: 'Cannot provide a first name without a last name!',
-        preventSubmitError: true
+        preventSubmit: true
       });
     }
 
     if (formData.birthDate.getTime() > (new Date()).getTime()) {
       errorMap.add(exampleFormFieldNames.birthDate, {
         message: 'Birth date cannot be in the future!',
-        preventSubmitError: true
+        preventSubmit: true
       });
     }
 
     if (!formData.hobby) {
       errorMap.add(exampleFormFieldNames.hobby, {
         message: 'Must have a hobby selected!',
-        preventSubmitError: true
+        preventSubmit: true
       });
     }
 
     if (!formData.password || formData.password.length === 0) {
       errorMap.add(exampleFormFieldNames.password, {
         message: 'A password must be provided',
-        preventSubmitError: true
+        preventSubmit: true
       });
     }
 

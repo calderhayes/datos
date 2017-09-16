@@ -19,6 +19,6 @@ export enum FieldMessageType {
 
 export interface IFieldMessage {
   message: string;
-  preventSubmitError: boolean;
+  preventSubmit: boolean;
   fieldMessageType?: FieldMessageType;
 };
