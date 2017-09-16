@@ -1,6 +1,6 @@
 {
   "name": "datos",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple React form utility to enable easy validation with minimal dependencies and written in TypeScript.",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
