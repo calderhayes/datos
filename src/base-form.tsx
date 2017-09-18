@@ -3,7 +3,7 @@ import {IHTMLEvent, noop, IFieldMessage} from './utility';
 import {FieldMessageMap} from './field-message-map';
 
 export interface IBaseFormProps<T extends object> {
-  defaultFormData: T;
+  defaultFormData?: T;
   onBlur?: (formData: T) => void;
   onSubmit?: (formData: T) => void;
   validator?: (formData: T) => FieldMessageMap;
@@ -11,7 +11,7 @@ export interface IBaseFormProps<T extends object> {
   formMessages?: Array<string>;
   // We may need something like this if we are validation externally?
   // lastTimeFieldUpdated: number;
-  fieldMessageMap: FieldMessageMap;
+  fieldMessageMap?: FieldMessageMap;
 }
 
 export interface IBaseFormState<T extends object> {
@@ -32,7 +32,7 @@ extends React.Component<P, S> {
 
     this.state = {
       fieldMessageMap: new FieldMessageMap(),
-      formData: this.props.defaultFormData
+      formData: this.props.defaultFormData || {}
     } as S;
   }
 
@@ -70,8 +70,8 @@ extends React.Component<P, S> {
   protected validate(data: T, callback?: () => void) {
     const validator = this.props.validator || this.defaultValidator;
     const fieldMessageMap = validator(data);
-    const map: FieldMessageMap = this.props
-      .fieldMessageMap
+    const propsMessages = this.props.fieldMessageMap || new FieldMessageMap();
+    const map: FieldMessageMap = propsMessages
       .addOrOverrideWithMap(fieldMessageMap);
     this.setState({
       fieldMessageMap: map

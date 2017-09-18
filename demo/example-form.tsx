@@ -5,6 +5,7 @@ export interface IExampleFormData {
   firstName: string;
   middleName: string;
   lastName: string;
+  password: string;
   birthDate: Date;
   allGood: boolean;
   hobby: string;
@@ -22,6 +23,7 @@ export const exampleFormFieldNames = {
   firstName: 'firstName',
   middleName: 'middleName',
   lastName: 'lastName',
+  password: 'password',
   birthDate: 'birthDate',
   allGood: 'allGood',
   hobby: 'hobby'
@@ -57,7 +59,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
       return (
         <li key={i.toString()}>
           <Datos.ValidationMessage
-            fieldMessage={{message: m, preventSubmitError: false}}
+            fieldMessage={{message: m, preventSubmit: false}}
             className='help-block'
             containerClassName='has-error'
           />
@@ -141,6 +143,24 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
         </div>
 
         <div className='form-group'>
+          <label htmlFor={this.names.password}>Password</label>
+          <Datos.PasswordInput
+            disabled={this.props.isLoading}
+            errorContainerClassName='has-error'
+            className='form-control'
+            onBlur={this.updateFormData}
+            name={this.names.password}
+            value={this.state.formData.password}
+            fieldMessage={this.state.fieldMessageMap.get(this.names.password)}
+          />
+          <Datos.ValidationMessage
+            fieldMessage={this.state.fieldMessageMap.get(this.names.password)}
+            className='help-block'
+            containerClassName='has-error'
+          />
+        </div>
+
+        <div className='form-group'>
           <label htmlFor={this.names.birthDate}>Birth Date</label>
           <Datos.DateTimeInput
             disabled={this.props.isLoading}
@@ -198,10 +218,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
         <Datos.SubmitButton
           className='btn btn-primary'
           canSubmit={canSubmit}
-          onSubmit={() => {
-            this.onSubmit();
-            console.info('SUBMITTED', this.state.formData);
-           }}
+          onSubmit={this.onSubmit}
         >
           {spinner} Submit Data
         </Datos.SubmitButton>
@@ -217,28 +234,35 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
       // Some arbitrary tule
       errorMap.add(exampleFormFieldNames.firstName, {
         message: 'First name cannot contain a "z"!',
-        preventSubmitError: true
+        preventSubmit: true
       });
     }
 
     if (formData.firstName.length > 0 && formData.lastName.length === 0) {
       errorMap.add(exampleFormFieldNames.lastName, {
         message: 'Cannot provide a first name without a last name!',
-        preventSubmitError: true
+        preventSubmit: true
       });
     }
 
     if (formData.birthDate.getTime() > (new Date()).getTime()) {
       errorMap.add(exampleFormFieldNames.birthDate, {
         message: 'Birth date cannot be in the future!',
-        preventSubmitError: true
+        preventSubmit: true
       });
     }
 
     if (!formData.hobby) {
       errorMap.add(exampleFormFieldNames.hobby, {
         message: 'Must have a hobby selected!',
-        preventSubmitError: true
+        preventSubmit: true
+      });
+    }
+
+    if (!formData.password || formData.password.length === 0) {
+      errorMap.add(exampleFormFieldNames.password, {
+        message: 'A password must be provided',
+        preventSubmit: true
       });
     }
 

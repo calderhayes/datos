@@ -42,7 +42,7 @@ export abstract class BaseInput<P extends IBaseInputProps, S extends IBaseInputS
     } as S;
   }
 
-  public componentWillReceiveProps(nextProps: IBaseInputProps) {
+  public componentWillReceiveProps(nextProps: P) {
     if (nextProps.value !== this.props.value) {
       this.setState({
         value: nextProps.value,

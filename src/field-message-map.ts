@@ -52,7 +52,7 @@ export class FieldMessageMap {
   }
 
   public canSubmit() {
-    return !this.fieldMessages.find((e) => e.value.preventSubmitError);
+    return !this.fieldMessages.find((e) => e.value.preventSubmit);
   }
 
   public addOrOverrideWithMap(map: FieldMessageMap) {
