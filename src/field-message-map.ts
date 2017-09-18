@@ -41,7 +41,7 @@ export class FieldMessageMap {
     this.fieldMessages.splice(index, 1);
   }
 
-  public get(key: string) {
+  public get(key: string): IFieldMessage|null {
     const index = this.fieldMessages.findIndex((f) => f.key === key);
     if (index !== -1) {
       return this.fieldMessages[index].value;

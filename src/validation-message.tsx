@@ -17,7 +17,7 @@ export class ValidationMessage extends React.Component<IValidationMessageProps, 
     return (
       <div className={this.props.containerClassName || ''}>
         <span className={this.props.className || ''}>
-          {this.props.fieldMessage.message}
+          {this.props.children}&nbsp;{this.props.fieldMessage.message}
         </span>
       </div>
     );

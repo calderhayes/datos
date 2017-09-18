@@ -93,13 +93,14 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             onBlur={this.updateFormData}
             name={this.names.firstName}
             value={this.state.formData.firstName}
-            fieldMessage={this.state.fieldMessageMap.get(this.names.firstName)}
+            fieldMessage={this.getFieldMessage(this.names.firstName)}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.fieldMessageMap.get(this.names.firstName)}
+            fieldMessage={this.getFieldMessage(this.names.firstName)}
             className='help-block'
-            containerClassName='has-error'
-          />
+            containerClassName='has-error'>
+            <span className='glyphicon glyphicon-exclamation-sign' aria-hidden='true' />
+          </Datos.ValidationMessage>
         </div>
 
         <div className='form-group'>
@@ -112,10 +113,10 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             onBlur={this.updateFormData}
             name={this.names.middleName}
             value={this.state.formData.middleName}
-            fieldMessage={this.state.fieldMessageMap.get(this.names.middleName)}
+            fieldMessage={this.getFieldMessage(this.names.middleName)}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.fieldMessageMap.get(this.names.middleName)}
+            fieldMessage={this.getFieldMessage(this.names.middleName)}
             className='help-block'
             containerClassName='has-error'
           />
@@ -130,10 +131,10 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             onBlur={this.updateFormData}
             name={this.names.lastName}
             value={this.state.formData.lastName}
-            fieldMessage={this.state.fieldMessageMap.get(this.names.lastName)}
+            fieldMessage={this.getFieldMessage(this.names.lastName)}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.fieldMessageMap.get(this.names.lastName)}
+            fieldMessage={this.getFieldMessage(this.names.lastName)}
             className='help-block'
             containerClassName='has-error'
           />
@@ -148,10 +149,10 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             onBlur={this.updateFormData}
             name={this.names.birthDate}
             value={this.state.formData.birthDate.toISOString()}
-            fieldMessage={this.state.fieldMessageMap.get(this.names.birthDate)}
+            fieldMessage={this.getFieldMessage(this.names.birthDate)}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.fieldMessageMap.get(this.names.birthDate)}
+            fieldMessage={this.getFieldMessage(this.names.birthDate)}
             className='help-block'
             containerClassName='has-error'
           />
@@ -167,10 +168,10 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             onChange={this.updateFormData}
             canHaveUnselected={true}
             value={this.state.formData.hobby}
-            fieldMessage={this.state.fieldMessageMap.get(this.names.hobby)}
+            fieldMessage={this.getFieldMessage(this.names.hobby)}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.fieldMessageMap.get(this.names.hobby)}
+            fieldMessage={this.getFieldMessage(this.names.hobby)}
             className='help-block'
             containerClassName='has-error'
           />
@@ -185,10 +186,10 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             onChange={this.updateFormData}
             name={this.names.allGood}
             checked={this.state.formData.allGood}
-            fieldMessage={this.state.fieldMessageMap.get(this.names.allGood)}
+            fieldMessage={this.getFieldMessage(this.names.allGood)}
           />
           <Datos.ValidationMessage
-            fieldMessage={this.state.fieldMessageMap.get(this.names.allGood)}
+            fieldMessage={this.getFieldMessage(this.names.allGood)}
             className='help-block'
             containerClassName='has-error'
           />

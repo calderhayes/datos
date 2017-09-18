@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {IHTMLEvent, noop} from './utility';
+import {IHTMLEvent, noop, IFieldMessage} from './utility';
 import {FieldMessageMap} from './field-message-map';
 
 export interface IBaseFormProps<T extends object> {
@@ -76,6 +76,10 @@ extends React.Component<P, S> {
     this.setState({
       fieldMessageMap: map
     }, callback || noop);
+  }
+
+  protected getFieldMessage(name: string): IFieldMessage|null {
+    return this.state.fieldMessageMap.get(name);
   }
 
   protected onSubmit() {
