@@ -29,6 +29,7 @@ extends React.Component<P, S> {
     this.validate = this.validate.bind(this);
     this.defaultValidator = this.defaultValidator.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.getFieldMessage = this.getFieldMessage.bind(this);
 
     this.state = {
       fieldMessageMap: new FieldMessageMap(),
