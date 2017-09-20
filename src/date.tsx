@@ -76,7 +76,7 @@ export class DateTimeInput extends BaseInput<IDateTimeInputProps, IBaseInputStat
       <div className={this.resolveContainerClassName()}>
         <ReactDateTimeInput
           {...(rest) as any}
-          inputProps={{readOnly: true}}
+          inputProps={{readOnly: true, autoFocus: this.props.autoFocus}}
           input={true}
           value={moment(this.state.value)}
           className={this.resolveContainerClassName}

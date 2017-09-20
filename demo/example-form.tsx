@@ -89,6 +89,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
         <div className='form-group'>
           <label htmlFor={this.names.firstName}>First Name</label>
           <Datos.TextInput
+            autoFocus={true}
             disabled={this.props.isLoading}
             errorContainerClassName='has-error'
             className='form-control'

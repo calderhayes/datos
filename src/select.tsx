@@ -43,9 +43,19 @@ export class SelectInput extends BaseInput<ISelectInputProps, ISelectInputState>
       return <option key={i.toString()} value={o.value}>{o.label}</option>;
     });
 
+    const {
+      onBlur,
+      defaultOptions,
+      errorContainerClassName,
+      canHaveUnselected,
+      fieldMessage,
+      ...rest
+    } = this.props;
+
     return (
       <div className={this.resolveContainerClassName()}>
         <select
+          {...rest}
           name={this.props.name}
           className={this.resolveClassName()}
           onChange={this._onChange}

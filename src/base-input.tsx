@@ -5,6 +5,7 @@ import {IHTMLEvent, noop, IFieldMessage, FieldMessageType} from './utility';
 export interface IBaseInputProps {
   value?: string;
   name: string;
+  autoFocus?: boolean;
   disabled?: boolean;
   className?: string;
   onChange?: (event: IHTMLEvent) => void;
