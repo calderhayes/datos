@@ -9,3 +9,4 @@ export * from './field-message-map';
 export * from './select';
 export * from './password';
 export * from './utility';
+export * from './textarea';

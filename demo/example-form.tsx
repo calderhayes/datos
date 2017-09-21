@@ -9,6 +9,7 @@ export interface IExampleFormData {
   birthDate: Date;
   allGood: boolean;
   hobby: string;
+  description: string;
 }
 
 export interface IExampleFormProps extends Datos.IBaseFormProps<IExampleFormData> {
@@ -26,7 +27,8 @@ export const exampleFormFieldNames = {
   password: 'password',
   birthDate: 'birthDate',
   allGood: 'allGood',
-  hobby: 'hobby'
+  hobby: 'hobby',
+  description: 'description'
 };
 
 const hobbies = [
@@ -156,6 +158,25 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
           />
           <Datos.ValidationMessage
             fieldMessage={this.state.fieldMessageMap.get(this.names.password)}
+            className='help-block'
+            containerClassName='has-error'
+          />
+        </div>
+
+        <div className='form-group'>
+          <label htmlFor={this.names.description}>Description</label>
+          <Datos.TextAreaInput
+            rows={5}
+            disabled={this.props.isLoading}
+            errorContainerClassName='has-error'
+            className='form-control'
+            onBlur={this.updateFormData}
+            name={this.names.description}
+            value={this.state.formData.description}
+            fieldMessage={this.getFieldMessage(this.names.description)}
+          />
+          <Datos.ValidationMessage
+            fieldMessage={this.getFieldMessage(this.names.description)}
             className='help-block'
             containerClassName='has-error'
           />

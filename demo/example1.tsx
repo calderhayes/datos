@@ -33,7 +33,8 @@ export class Example1 extends React.Component<IExample1Props, IExample1State> {
         birthDate,
         allGood: false,
         hobby: '',
-        password: ''
+        password: '',
+        description: 'Some long description value that should hopefully fill up our text area field'
       },
       isLoading: false,
       serverErrors: new Array<string>(),
