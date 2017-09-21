@@ -35,7 +35,7 @@ npm install
 To run the demo:
 
 ```
-npm run demo
+npm start
 ```
 
 Lint:

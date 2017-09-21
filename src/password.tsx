@@ -27,7 +27,7 @@ export class PasswordInput extends BaseInput<IPasswordProps, IBaseInputState> {
       <div className={this.resolveContainerClassName()}>
         <input
           {...(rest) as any}
-          type='password'
+          type={this.type}
           className={this.resolveClassName()}
           value={this.state.value}
           onChange={this.onChange}

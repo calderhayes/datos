@@ -10,7 +10,7 @@
     "build": "npm run lint && node ./node_modules/typescript/bin/tsc",
     "test": "npm run build && node ./node_modules/mocha/bin/mocha --recursive ./dist/test",
     "clean": "rm -rf ./dist/*",
-    "demo": "npm run build && node webpack.devserver.js",
+    "start": "npm run build && webpack-dev-server --config webpack.config.js",
     "prepublish": "npm run clean && npm run build"
   },
   "repository": {

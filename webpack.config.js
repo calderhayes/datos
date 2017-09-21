@@ -75,5 +75,13 @@ module.exports = {
     module: false,
     clearImmediate: false,
     setImmediate: false
+  },
+  devServer: {
+    port: 8080,
+    historyApiFallback: {
+      index: 'index.html'
+    },
+    hot: false,
+    inline: false
   }
 };

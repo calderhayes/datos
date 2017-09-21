@@ -25,7 +25,7 @@ export class CheckboxInput extends BaseInput<ICheckboxInputProps, IBaseInputStat
       <div className={this.resolveContainerClassName()}>
         <input
           {...(rest) as any}
-          type='checkbox'
+          type={this.type}
           className={this.resolveClassName()}
           checked={checked}
           onClick={this.onChange}

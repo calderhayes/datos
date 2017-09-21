@@ -1,15 +1,15 @@
 import * as React from 'react';
 import {BaseInput, IBaseInputProps, IBaseInputState} from './base-input';
 
-export interface IInputProps extends IBaseInputProps {
+export interface ITextProps extends IBaseInputProps {
   placeholder?: string;
 }
 
-export class TextInput extends BaseInput<IInputProps, IBaseInputState> {
+export class TextInput extends BaseInput<ITextProps, IBaseInputState> {
 
   protected type = 'text';
 
-  constructor(props: IInputProps) {
+  constructor(props: ITextProps) {
     super(props);
   }
 
@@ -27,7 +27,7 @@ export class TextInput extends BaseInput<IInputProps, IBaseInputState> {
       <div className={this.resolveContainerClassName()}>
         <input
           {...(rest) as any}
-          type='text'
+          type={this.type}
           className={this.resolveClassName()}
           value={this.state.value}
           onChange={this.onChange}
