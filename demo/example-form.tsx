@@ -52,6 +52,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
 
   public render() {
 
+    const rows = 5;
     const canSubmit = this.canSubmit && !this.props.isLoading;
     // See index.html for the CSS3 required for this spinner
     const spinner = this.props.isLoading ?
@@ -166,7 +167,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
         <div className='form-group'>
           <label htmlFor={this.names.description}>Description</label>
           <Datos.TextAreaInput
-            rows={5}
+            rows={rows}
             disabled={this.props.isLoading}
             errorContainerClassName='has-error'
             className='form-control'

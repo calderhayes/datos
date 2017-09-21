@@ -7,6 +7,9 @@ export interface ITextAreaProps extends IBaseInputProps {
   cols?: number|null;
 }
 
+const defaultRows = 3;
+const defaultCols = 1;
+
 export class TextAreaInput extends BaseInput<ITextAreaProps, IBaseInputState> {
 
   protected type = 'textarea';
@@ -31,8 +34,8 @@ export class TextAreaInput extends BaseInput<ITextAreaProps, IBaseInputState> {
           {...(rest) as any}
           className={this.resolveClassName()}
           value={this.state.value}
-          rows={this.props.rows || 3}
-          cols={this.props.cols || 1}
+          rows={this.props.rows || defaultRows}
+          cols={this.props.cols || defaultCols}
           onChange={this.onChange}
           onBlur={this.onBlur}
         />
