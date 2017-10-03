@@ -98,12 +98,15 @@ extends React.Component<P, S> {
       return null;
     }
 
+    const decimalRadix = 10;
     const target = event.target;
     switch (target.type) {
       case 'checkbox':
         return target.checked;
       case 'date':
         return new Date(target.value);
+      case 'number':
+        return parseInt(target.value, decimalRadix);
       default:
         return target.value;
     }

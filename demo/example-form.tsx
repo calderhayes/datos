@@ -1,3 +1,4 @@
+/* tslint:disable:max-file-line-count */
 import * as React from 'react';
 import * as Datos from '../src';
 
@@ -10,6 +11,7 @@ export interface IExampleFormData {
   allGood: boolean;
   hobby: string;
   description: string;
+  favoriteNumber: number;
 }
 
 export interface IExampleFormProps extends Datos.IBaseFormProps<IExampleFormData> {
@@ -28,7 +30,8 @@ export const exampleFormFieldNames = {
   birthDate: 'birthDate',
   allGood: 'allGood',
   hobby: 'hobby',
-  description: 'description'
+  description: 'description',
+  favoriteNumber: 'favoriteNumber'
 };
 
 const hobbies = [
@@ -159,6 +162,24 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
           />
           <Datos.ValidationMessage
             fieldMessage={this.state.fieldMessageMap.get(this.names.password)}
+            className='help-block'
+            containerClassName='has-error'
+          />
+        </div>
+
+        <div className='form-group'>
+          <label htmlFor={this.names.favoriteNumber}>Favorite Number</label>
+          <Datos.IntegerInput
+            disabled={this.props.isLoading}
+            errorContainerClassName='has-error'
+            className='form-control'
+            onBlur={this.updateFormData}
+            name={this.names.favoriteNumber}
+            numberValue={this.state.formData.favoriteNumber}
+            fieldMessage={this.getFieldMessage(this.names.favoriteNumber)}
+          />
+          <Datos.ValidationMessage
+            fieldMessage={this.getFieldMessage(this.names.favoriteNumber)}
             className='help-block'
             containerClassName='has-error'
           />
