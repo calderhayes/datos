@@ -11,3 +11,4 @@ export * from './password';
 export * from './utility';
 export * from './textarea';
 export * from './integer';
+export * from './decimal';

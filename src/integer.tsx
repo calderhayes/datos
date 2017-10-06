@@ -10,13 +10,13 @@ export interface IIntegerProps extends IBaseInputProps {
 
 export class IntegerInput extends BaseInput<IIntegerProps, IBaseInputState> {
 
-  protected type = 'number';
+  protected readonly type = 'integer';
 
   constructor(props: IIntegerProps) {
     super(props);
 
     this.state = {
-      value: this.props.numberValue.toString(),
+      value: props.numberValue.toString(),
       isUsed: false,
       isChanged: false
     } as IBaseInputState;

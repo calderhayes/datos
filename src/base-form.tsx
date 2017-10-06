@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {IHTMLEvent, noop, IFieldMessage} from './utility';
 import {FieldMessageMap} from './field-message-map';
+import {IDecimalHTMLEvent} from './decimal';
 
 export interface IBaseFormProps<T extends object> {
   defaultFormData?: T;
@@ -18,6 +19,10 @@ export interface IBaseFormState<T extends object> {
   fieldMessageMap: FieldMessageMap;
   formData: T;
 }
+
+const isDecimal = (value: string) => {
+  return (value.match( /^(\d+\.?\d*|\.\d+)$/ ) !== null);
+};
 
 export abstract class BaseForm
 <T extends object, P extends IBaseFormProps<T>, S extends IBaseFormState<T>>
@@ -105,8 +110,19 @@ extends React.Component<P, S> {
         return target.checked;
       case 'date':
         return new Date(target.value);
-      case 'number':
+      case 'integer':
         return parseInt(target.value, decimalRadix);
+      case 'decimal':
+        {
+
+          const decimalEvent = event as IDecimalHTMLEvent;
+          const decimalValue = decimalEvent.target.value.split('')
+            .reduce((str: string, char: string) => {
+              const tmp = str + char;
+              return isDecimal(tmp) ? tmp : str;
+            });
+          return decimalValue;
+        }
       default:
         return target.value;
     }
