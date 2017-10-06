@@ -35,7 +35,8 @@ export class Example1 extends React.Component<IExample1Props, IExample1State> {
         hobby: '',
         password: '',
         description: 'Some long description value that should hopefully fill up our text area field',
-        favoriteNumber: 0
+        favoriteNumber: 0,
+        hours: 0.0
       },
       isLoading: false,
       serverErrors: new Array<string>(),

@@ -105,8 +105,10 @@ extends React.Component<P, S> {
         return target.checked;
       case 'date':
         return new Date(target.value);
-      case 'number':
+      case 'integer':
         return parseInt(target.value, decimalRadix);
+      case 'number':
+        return parseFloat(target.value);
       default:
         return target.value;
     }

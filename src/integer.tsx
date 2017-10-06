@@ -10,7 +10,7 @@ export interface IIntegerProps extends IBaseInputProps {
 
 export class IntegerInput extends BaseInput<IIntegerProps, IBaseInputState> {
 
-  protected readonly type = 'number';
+  protected readonly type = 'integer';
 
   constructor(props: IIntegerProps) {
     super(props);
@@ -37,7 +37,7 @@ export class IntegerInput extends BaseInput<IIntegerProps, IBaseInputState> {
       <div className={this.resolveContainerClassName()}>
         <input
           {...(rest) as any}
-          type={this.type}
+          type='number'
           className={this.resolveClassName()}
           value={this.state.value}
           onChange={this.onChange}

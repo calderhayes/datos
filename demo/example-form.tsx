@@ -12,6 +12,7 @@ export interface IExampleFormData {
   hobby: string;
   description: string;
   favoriteNumber: number;
+  hours: number;
 }
 
 export interface IExampleFormProps extends Datos.IBaseFormProps<IExampleFormData> {
@@ -31,7 +32,8 @@ export const exampleFormFieldNames = {
   allGood: 'allGood',
   hobby: 'hobby',
   description: 'description',
-  favoriteNumber: 'favoriteNumber'
+  favoriteNumber: 'favoriteNumber',
+  hours: 'hours'
 };
 
 const hobbies = [
@@ -162,6 +164,25 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
           />
           <Datos.ValidationMessage
             fieldMessage={this.state.fieldMessageMap.get(this.names.password)}
+            className='help-block'
+            containerClassName='has-error'
+          />
+        </div>
+
+        <div className='form-group'>
+          <label htmlFor={this.names.hours}>Hours</label>
+          <Datos.NumberInput
+            disabled={this.props.isLoading}
+            errorContainerClassName='has-error'
+            className='form-control'
+            placeholder='Hours'
+            onBlur={this.updateFormData}
+            name={this.names.hours}
+            numberValue={this.state.formData.hours}
+            fieldMessage={this.getFieldMessage(this.names.hours)}
+          />
+          <Datos.ValidationMessage
+            fieldMessage={this.getFieldMessage(this.names.hours)}
             className='help-block'
             containerClassName='has-error'
           />
@@ -306,6 +327,19 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
     if (!formData.password || formData.password.length === 0) {
       errorMap.add(exampleFormFieldNames.password, {
         message: 'A password must be provided',
+        preventSubmit: true
+      });
+    }
+
+    if (isNaN(formData.hours)) {
+      errorMap.add(exampleFormFieldNames.hours, {
+        message: 'Hours must be a number',
+        preventSubmit: true
+      });
+    }
+    else if (formData.hours < 0) {
+      errorMap.add(exampleFormFieldNames.hours, {
+        message: 'Hours must be greater than 0',
         preventSubmit: true
       });
     }
