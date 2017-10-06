@@ -10,7 +10,7 @@ export interface IIntegerProps extends IBaseInputProps {
 
 export class IntegerInput extends BaseInput<IIntegerProps, IBaseInputState> {
 
-  protected readonly ype = 'number';
+  protected readonly type = 'number';
 
   constructor(props: IIntegerProps) {
     super(props);
