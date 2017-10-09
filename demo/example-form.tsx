@@ -252,6 +252,7 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
             className='form-control'
             onChange={this.updateFormData}
             canHaveUnselected={true}
+            unselectedText='No Hobby'
             value={this.state.formData.hobby}
             fieldMessage={this.getFieldMessage(this.names.hobby)}
           />

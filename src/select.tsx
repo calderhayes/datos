@@ -10,6 +10,7 @@ export interface ISelectInputOption {
 export interface ISelectInputProps extends IBaseInputProps {
   defaultOptions: Array<ISelectInputOption>;
   canHaveUnselected?: boolean;
+  unselectedText?: string;
 }
 
 export interface ISelectInputState extends IBaseInputState {
@@ -26,7 +27,7 @@ export class SelectInput extends BaseInput<ISelectInputProps, ISelectInputState>
 
     const options = props.defaultOptions.slice(0);
     if (props.canHaveUnselected) {
-      options.unshift({ value: '', label: ''});
+      options.unshift({ value: '', label: props.unselectedText || ''});
     }
 
     this.state = {
@@ -49,6 +50,7 @@ export class SelectInput extends BaseInput<ISelectInputProps, ISelectInputState>
       errorContainerClassName,
       canHaveUnselected,
       fieldMessage,
+      unselectedText,
       ...rest
     } = this.props;
 
