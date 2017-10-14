@@ -8,45 +8,30 @@ export interface ISelectInputOption {
 }
 
 export interface ISelectInputProps extends IBaseInputProps {
-  defaultOptions: Array<ISelectInputOption>;
+  options: Array<ISelectInputOption>;
   canHaveUnselected?: boolean;
   unselectedText?: string;
 }
 
-export interface ISelectInputState extends IBaseInputState {
-  options: Array<ISelectInputOption>;
-  value: string;
-}
-
-export class SelectInput extends BaseInput<ISelectInputProps, ISelectInputState> {
+export class SelectInput extends BaseInput<ISelectInputProps, IBaseInputState> {
 
   protected type = 'select';
 
   constructor(props: ISelectInputProps) {
     super(props);
 
-    const options = props.defaultOptions.slice(0);
-    if (props.canHaveUnselected) {
-      options.unshift({ value: '', label: props.unselectedText || ''});
-    }
-
     this.state = {
-      options,
       value: this.props.value || ''
-    } as ISelectInputState;
+    } as IBaseInputState;
 
     this._onChange = this._onChange.bind(this);
   }
 
   public render() {
 
-    const options = this.state.options.map((o, i) => {
-      return <option key={i.toString()} value={o.value}>{o.label}</option>;
-    });
-
     const {
       onBlur,
-      defaultOptions,
+      options,
       errorContainerClassName,
       canHaveUnselected,
       fieldMessage,
@@ -62,10 +47,21 @@ export class SelectInput extends BaseInput<ISelectInputProps, ISelectInputState>
           className={this.resolveClassName()}
           onChange={this._onChange}
           value={this.state.value}>
-          {options}
+          {this.mapOptionsToElements(options)}
         </select>
       </div>
     );
+  }
+
+  private mapOptionsToElements(options: Array<ISelectInputOption>) {
+    const opts = options.slice(0);
+    if (this.props.canHaveUnselected) {
+      opts.unshift({ value: '', label: this.props.unselectedText || ''});
+    }
+
+    return opts.map((o, i) => {
+      return <option key={i.toString()} value={o.value}>{o.label}</option>;
+    });
   }
 
   private _onChange(e: IHTMLEvent) {

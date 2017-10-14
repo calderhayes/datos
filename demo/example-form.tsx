@@ -20,7 +20,7 @@ export interface IExampleFormProps extends Datos.IBaseFormProps<IExampleFormData
 }
 
 export interface IExampleFormState extends Datos.IBaseFormState<IExampleFormData> {
-
+  hobbies: Array<Datos.ISelectInputOption>;
 }
 
 export const exampleFormFieldNames = {
@@ -36,24 +36,30 @@ export const exampleFormFieldNames = {
   hours: 'hours'
 };
 
-const hobbies = [
-  {
-    value: 'baseball',
-    label: 'Baseball'
-  },
-  {
-    value: 'pcs',
-    label: 'Windows Desktops'
-  },
-  {
-    value: 'macs',
-    label: 'Apple Macintosh'
-  }
-];
-
 export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormProps, IExampleFormState> {
 
   private readonly names = exampleFormFieldNames;
+
+  public componentWillMount() {
+    // I know this isn't the best place to initialize state
+    this.setState({
+      ...this.state,
+      hobbies: [
+        {
+          value: 'baseball',
+          label: 'Baseball'
+        },
+        {
+          value: 'pcs',
+          label: 'Windows Desktops'
+        },
+        {
+          value: 'macs',
+          label: 'Apple Macintosh'
+        }
+      ]
+    });
+  }
 
   public render() {
 
@@ -243,10 +249,21 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
           />
         </div>
 
+        <div className='row'>
+          <div className='col-xs-12'>
+            <button
+              type='button'
+              className='btn btn-primary'
+              onClick={this.addRandomHobby}>
+              Add Random Hobby
+            </button>
+          </div>
+        </div>
+
         <div className='form-group'>
           <label htmlFor={this.names.hobby}>Hobby</label>
           <Datos.SelectInput
-            defaultOptions={hobbies}
+            options={this.state.hobbies}
             name={this.names.hobby}
             errorContainerClassName='has-error'
             className='form-control'
@@ -346,6 +363,22 @@ export class ExampleForm extends Datos.BaseForm<IExampleFormData, IExampleFormPr
     }
 
     return errorMap;
+  }
+
+  private addRandomHobby = () => {
+    const newHobby = 'hobby-' + (new Date()).getTime().toString();
+    const item: Datos.ISelectInputOption = {
+      value: newHobby,
+      label: newHobby
+    };
+
+    const hobbies = this.state.hobbies.slice(0);
+    hobbies.push(item);
+
+    this.setState({
+      ...this.state,
+      hobbies
+    });
   }
 
 }
